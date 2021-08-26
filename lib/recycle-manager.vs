@@ -10,7 +10,7 @@ Client
 const RecycleM = new Object('RecycleManager')
 
 RecycleManager
-	const version = '_RecycleManager_ v1.2.0'
+	const version = '_RecycleManager_ v1.3.0'
 	const COLLECTION_LIMIT = 100
 
 	function collect(pDiob, pCollection)
@@ -26,16 +26,16 @@ RecycleManager
 			if (collectionArray)
 				if (pDiob.length + pCollection.length >= this.COLLECTION_LIMIT)
 					var deleteAmount = pDiob.length - (this.COLLECTION_LIMIT - pCollection.length)
-					var d = pDiob.length - 1
+					var deleteIndex = pDiob.length - 1
 					for (var c = 0; c < deleteAmount; c++)
-						var ref = pDiob[d]
+						var ref = pDiob[deleteIndex]
 						if (ref.baseType)
-							pDiob.splice(d, 1)
+							pDiob.splice(deleteIndex, 1)
 							del Diob(ref)
 						else
-							pDiob.splice(d, 1)
+							pDiob.splice(deleteIndex, 1)
 							del Object(ref)
-						d--
+						deleteIndex--
 				
 			if (pCollection.length >= this.COLLECTION_LIMIT)
 				if (collectionArray)
@@ -156,6 +156,6 @@ Object
 		
 	function clean()
 		//
-		
+
 #END CLIENTCODE
 #END SERVERCODE
