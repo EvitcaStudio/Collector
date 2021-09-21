@@ -3,7 +3,7 @@
 #BEGIN CLIENTCODE
 Client
 	onNew()
-		this.___EVITCA_recycle = true
+		this.___EVITCA_aRecycle = true
 
 #BEGIN SERVERCODE
 
@@ -131,9 +131,9 @@ Diob
 		this.yPos = 0
 		this.mapName = ''
 		this.text = ''
+		this.scale = { 'x': 1 , 'y': 1 }
 		this.playAnimation()
 		this.setTransition()
-
 		if (this.inTicker)
 			Event.removeTicker(this)
 
