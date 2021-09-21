@@ -10,7 +10,7 @@ Client
 const RecycleM = new Object('RecycleManager')
 
 RecycleManager
-	const version = '_RecycleManager_ v1.3.0'
+	const version = 'v1.3.0'
 	const COLLECTION_LIMIT = 100
 
 	function collect(pDiob, pCollection)
