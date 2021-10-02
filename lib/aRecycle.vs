@@ -7,9 +7,9 @@ Client
 
 #BEGIN SERVERCODE
 
-const RecycleM = new Object('RecycleManager')
+const aRecycle = new Object('aRecycle')
 
-RecycleManager
+aRecycle
 	const version = 'v1.3.0'
 	const COLLECTION_LIMIT = 100
 
@@ -57,14 +57,16 @@ RecycleManager
 				for (var k = pDiob.length - 1; k >= 0; k--)
 					if (pDiob[k].onCollected)
 						pDiob[k].onCollected(pCollection)
-					pDiob[k].clean()
+					if (pDiob[k].clean)	
+						pDiob[k].clean()
 					if (!pCollection.includes(pDiob[k]))
 						pCollection.push(pDiob[k])
 				return pDiob
 			
 			if (pDiob.onCollected)
 				pDiob.onCollected(pCollection)
-			pDiob.clean()
+			if (pDiob.clean)
+				pDiob.clean()
 			if (!pCollection.includes(pDiob))
 				pCollection.push(pDiob)
 			return pDiob
@@ -114,10 +116,10 @@ RecycleManager
 			return collectionArray
 
 Diob
-	function onCollected(pCollection)
+	// function onCollected(pCollection)
 		// When this object is collected, called before the diob is cleaned and before it is collected into an array, but after this has been called indetical to diob.onDel()
 
-	function onDumped(pCollection)
+	// function onDumped(pCollection)
 		// This function is identical to diob.onNew(), when the diob is dumped from a array, do something with it. This should mimic your onNew() event function. Define it under diobs that will be dumped
 		// the first param will ALWAYS be the array this diob came from
 		
@@ -146,15 +148,15 @@ Diob
 		foreach(var fN in this.getFilters())
 			this.removeFilter(fN)
 
-Object
-	function onCollected(pCollection)
+// Object
+	// function onCollected(pCollection)
 		// When this object is collected, called before the diob is cleaned and before it is collected into an array, but after this has been called indetical to diob.onDel()
 
-	function onDumped(pCollection)
+	// function onDumped(pCollection)
 		// This function is identical to diob.onNew(), when the diob is dumped from a array, do something with it. This should mimic your onNew() event function. Define it under diobs that will be dumped
 		// the first param will ALWAYS be the collection this diob came from
 		
-	function clean()
+	// function clean()
 		//
 
 #END CLIENTCODE
