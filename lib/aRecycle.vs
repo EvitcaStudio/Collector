@@ -1,6 +1,6 @@
 #ENABLE LOCALCLIENTCODE
-
 #BEGIN CLIENTCODE
+
 Client
 	onNew()
 		this.___EVITCA_aRecycle = true
@@ -10,68 +10,71 @@ Client
 const aRecycle = new Object('aRecycle')
 
 aRecycle
-	const version = 'v1.3.0'
+	const version = 'v1.3.3'
 	const COLLECTION_LIMIT = 100
-
+	
+	// This function adds the diob to a array of choice instead of deleting it, a healthy alternative to del Diob()
 	function collect(pDiob, pCollection)
 		var collectionArray = false
-		// This function adds the diob to a array of choice instead of deleting it, a healthy alternative to del Diob()
-		if (pDiob)
-			if (Util.isArray(pDiob))	
-				if (pDiob.length)
-					collectionArray = true
-				else
-					return
+		if (Util.isArray(pCollection))
+			if (pDiob)
+				if (Util.isArray(pDiob))	
+					if (pDiob.length)
+						collectionArray = true
+					else
+						return
 
-			if (collectionArray)
-				if (pDiob.length + pCollection.length >= this.COLLECTION_LIMIT)
-					var deleteAmount = pDiob.length - (this.COLLECTION_LIMIT - pCollection.length)
-					var deleteIndex = pDiob.length - 1
-					for (var c = 0; c < deleteAmount; c++)
-						var ref = pDiob[deleteIndex]
-						if (ref.baseType)
-							pDiob.splice(deleteIndex, 1)
-							del Diob(ref)
-						else
-							pDiob.splice(deleteIndex, 1)
-							del Object(ref)
-						deleteIndex--
-				
-			if (pCollection.length >= this.COLLECTION_LIMIT)
 				if (collectionArray)
-					for (var i = pDiob.length - 1; i >= 0; i--)
-						if (pDiob[i].baseType)
-							del Diob(pDiob[i])
-						else
-							del Object(pDiob[i])
-					pDiob.length = 0
+					if (pDiob.length + pCollection.length >= this.COLLECTION_LIMIT)
+						var deleteAmount = pDiob.length - (this.COLLECTION_LIMIT - pCollection.length)
+						var deleteIndex = pDiob.length - 1
+						for (var c = 0; c < deleteAmount; c++)
+							var ref = pDiob[deleteIndex]
+							if (ref.baseType)
+								pDiob.splice(deleteIndex, 1)
+								del Diob(ref)
+							else
+								pDiob.splice(deleteIndex, 1)
+								del Object(ref)
+							deleteIndex--
+					
+				if (pCollection.length >= this.COLLECTION_LIMIT)
+					if (collectionArray)
+						for (var i = pDiob.length - 1; i >= 0; i--)
+							if (pDiob[i].baseType)
+								del Diob(pDiob[i])
+							else
+								del Object(pDiob[i])
+						pDiob.length = 0
+						return
+
+					if (pDiob.baseType) // quick check to see if its a object or a diob
+						del Diob(pDiob)
+					else
+						del Object(pDiob)
 					return
 
-				if (pDiob.baseType) // quick check to see if its a object or a diob
-					del Diob(pDiob)
-				else
-					del Object(pDiob)
-				return
-
-			if (collectionArray)
-				for (var k = pDiob.length - 1; k >= 0; k--)
-					if (pDiob[k].onCollected)
-						pDiob[k].onCollected(pCollection)
-					if (pDiob[k].clean)	
-						pDiob[k].clean()
-					if (!pCollection.includes(pDiob[k]))
-						pCollection.push(pDiob[k])
+				if (collectionArray)
+					for (var k = pDiob.length - 1; k >= 0; k--)
+						if (pDiob[k].onCollected)
+							pDiob[k].onCollected(pCollection)
+						if (pDiob[k].clean)	
+							pDiob[k].clean()
+						if (!pCollection.includes(pDiob[k]))
+							pCollection.push(pDiob[k])
+					return pDiob
+				
+				if (pDiob.onCollected)
+					pDiob.onCollected(pCollection)
+				if (pDiob.clean)
+					pDiob.clean()
+				if (!pCollection.includes(pDiob))
+					pCollection.push(pDiob)
 				return pDiob
-			
-			if (pDiob.onCollected)
-				pDiob.onCollected(pCollection)
-			if (pDiob.clean)
-				pDiob.clean()
-			if (!pCollection.includes(pDiob))
-				pCollection.push(pDiob)
-			return pDiob
+		else
+			JS.console.error('aRecycle Module [collect]: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.', 'pCollection: ', pCollection, 'pDiob: ', pDiob);
 
-	function isInCollection(pType, pNum, pCollection=[], pObject, ...pArgs)
+	function isInCollection(pType='Diob', pNum=1, pCollection=[], pObject=false, ...pArgs)
 		// This function returns a diob just the same way new Diob() would as well as returning a array of diobs if you need more than one. This is a healthy alternative to it. This will dump a diob for use or a array of diobs for use rather than creating it
 		// if the collection does not have a diob of this type, a new one is created as a last resort. This is the heart of the recycle manager.
 		var collectionArray = []
@@ -136,6 +139,7 @@ Diob
 		this.scale = { 'x': 1 , 'y': 1 }
 		this.playAnimation()
 		this.setTransition()
+
 		if (this.inTicker)
 			Event.removeTicker(this)
 
