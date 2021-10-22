@@ -12,6 +12,7 @@ const aRecycle = new Object('aRecycle')
 aRecycle
 	const version = 'v1.3.3'
 	const COLLECTION_LIMIT = 100
+	var basicCollection = []
 	
 	// This function adds the diob to a array of choice instead of deleting it, a healthy alternative to del Diob()
 	function collect(pDiob, pCollection)
