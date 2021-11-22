@@ -58,7 +58,7 @@ aRecycle
 				if (collectionArray)
 					for (var k = pDiob.length - 1; k >= 0; k--)
 						if (pDiob[k].onCollected)
-							pDiob[k].onCollected(pCollection)
+							pDiob[k].onCollected()
 						if (pDiob[k].clean)	
 							pDiob[k].clean()
 						if (!pCollection.includes(pDiob[k]))
@@ -66,7 +66,7 @@ aRecycle
 					return pDiob
 				
 				if (pDiob.onCollected)
-					pDiob.onCollected(pCollection)
+					pDiob.onCollected()
 				if (pDiob.clean)
 					pDiob.clean()
 				if (!pCollection.includes(pDiob))
@@ -105,7 +105,7 @@ aRecycle
 
 			foreach (var rd in collectionArray)
 				if (rd.onDumped)
-					rd.onDumped(pCollection, ...pArgs)
+					rd.onDumped(...pArgs)
 
 			if (pNum > found)
 				for (var x = 0; x < (pNum - found); x++)
@@ -120,17 +120,9 @@ aRecycle
 			return collectionArray
 
 Diob
-	// function onCollected(pCollection)
-		// When this object is collected, called before the diob is cleaned and before it is collected into an array, but after this has been called indetical to diob.onDel()
-
-	// function onDumped(pCollection)
-		// This function is identical to diob.onNew(), when the diob is dumped from a array, do something with it. This should mimic your onNew() event function. Define it under diobs that will be dumped
-		// the first param will ALWAYS be the array this diob came from
-		
 	function clean()
 		// This function wipes away any binding info that is connected to this diob when it is collected. So that when it is dumped it can be modified from a fresh state, if you want to do specific things per diob, define this function under another diob and do extra things there
 		this.color = null
-		this.iconState = ''
 		this.angle = 0
 		this.alpha = 1
 		this.xPos = 0
@@ -152,17 +144,6 @@ Diob
 
 		foreach(var fN in this.getFilters())
 			this.removeFilter(fN)
-
-// Object
-	// function onCollected(pCollection)
-		// When this object is collected, called before the diob is cleaned and before it is collected into an array, but after this has been called indetical to diob.onDel()
-
-	// function onDumped(pCollection)
-		// This function is identical to diob.onNew(), when the diob is dumped from a array, do something with it. This should mimic your onNew() event function. Define it under diobs that will be dumped
-		// the first param will ALWAYS be the collection this diob came from
-		
-	// function clean()
-		//
 
 #END CLIENTCODE
 #END SERVERCODE
