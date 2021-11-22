@@ -10,11 +10,10 @@ Client
 const aRecycle = new Object('aRecycle')
 
 aRecycle
-	const version = 'v1.3.3'
-	const COLLECTION_LIMIT = 100
+	const version = 'v1.0.0'
+	const COLLECTION_LIMIT = 200
 	var basicCollection = []
 	
-	// This function adds the diob to a array of choice instead of deleting it, a healthy alternative to del Diob()
 	function collect(pDiob, pCollection)
 		var collectionArray = false
 		if (Util.isArray(pCollection))
@@ -49,7 +48,7 @@ aRecycle
 						pDiob.length = 0
 						return
 
-					if (pDiob.baseType) // quick check to see if its a object or a diob
+					if (pDiob.baseType)
 						del Diob(pDiob)
 					else
 						del Object(pDiob)
@@ -57,6 +56,7 @@ aRecycle
 
 				if (collectionArray)
 					for (var k = pDiob.length - 1; k >= 0; k--)
+						pDiob[k].aRecycleCollected = true;
 						if (pDiob[k].onCollected)
 							pDiob[k].onCollected()
 						if (pDiob[k].clean)	
@@ -65,6 +65,7 @@ aRecycle
 							pCollection.push(pDiob[k])
 					return pDiob
 				
+				pDiob.aRecycleCollected = true;
 				if (pDiob.onCollected)
 					pDiob.onCollected()
 				if (pDiob.clean)
@@ -76,8 +77,6 @@ aRecycle
 			JS.console.error('aRecycle Module [collect]: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.', 'pCollection: ', pCollection, 'pDiob: ', pDiob);
 
 	function isInCollection(pType='Diob', pNum=1, pCollection=[], pObject=false, ...pArgs)
-		// This function returns a diob just the same way new Diob() would as well as returning a array of diobs if you need more than one. This is a healthy alternative to it. This will dump a diob for use or a array of diobs for use rather than creating it
-		// if the collection does not have a diob of this type, a new one is created as a last resort. This is the heart of the recycle manager.
 		var collectionArray = []
 		var found = 0
 		var count = pNum
@@ -104,6 +103,7 @@ aRecycle
 						count--
 
 			foreach (var rd in collectionArray)
+				rd.aRecycleCollected = false;
 				if (rd.onDumped)
 					rd.onDumped(...pArgs)
 
@@ -121,7 +121,6 @@ aRecycle
 
 Diob
 	function clean()
-		// This function wipes away any binding info that is connected to this diob when it is collected. So that when it is dumped it can be modified from a fresh state, if you want to do specific things per diob, define this function under another diob and do extra things there
 		this.color = null
 		this.angle = 0
 		this.alpha = 1
