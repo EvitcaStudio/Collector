@@ -121,7 +121,10 @@ aRecycle
 
 Diob
 	function clean()
-		this.color = null
+		if (Util.isObject(this.color))
+			this.color.tint = 0xFFFFFF
+		else
+			this.color = null
 		this.angle = 0
 		this.alpha = 1
 		this.xPos = 0
