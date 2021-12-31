@@ -128,6 +128,7 @@ Diob
 		this.yPos = 0
 		this.mapName = ''
 		this.text = ''
+		this.composite = ''
 		if (Util.isObject(this.scale))
 			this.scale.x = this.scale.y = 1
 			this.scale = this.scale
