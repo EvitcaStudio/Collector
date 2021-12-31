@@ -122,6 +122,7 @@ Diob
 			this.color.tint = 0xFFFFFF
 		else
 			this.color = null
+		this.color = this.color
 		this.angle = 0
 		this.alpha = 1
 		this.xPos = 0
