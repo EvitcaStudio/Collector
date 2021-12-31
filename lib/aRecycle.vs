@@ -27,16 +27,14 @@ aRecycle
 				if (collectionArray)
 					if (pDiob.length + pCollection.length >= this.COLLECTION_LIMIT)
 						var deleteAmount = pDiob.length - (this.COLLECTION_LIMIT - pCollection.length)
-						var deleteIndex = pDiob.length - 1
-						for (var c = 0; c < deleteAmount; c++)
-							var ref = pDiob[deleteIndex]
+						for (var c = pDiob.length - 1; c >= 0; c--)
+							var ref = pDiob[c]
 							if (ref.baseType)
-								pDiob.splice(deleteIndex, 1)
+								pDiob.splice(c, 1)
 								del Diob(ref)
 							else
-								pDiob.splice(deleteIndex, 1)
+								pDiob.splice(c, 1)
 								del Object(ref)
-							deleteIndex--
 					
 				if (pCollection.length >= this.COLLECTION_LIMIT)
 					if (collectionArray)
@@ -116,7 +114,6 @@ aRecycle
 				
 			if (collectionArray.length === 1)
 				return collectionArray.pop()
-				
 			return collectionArray
 
 Diob
@@ -131,10 +128,13 @@ Diob
 		this.yPos = 0
 		this.mapName = ''
 		this.text = ''
-		this.scale = { 'x': 1 , 'y': 1 }
+		if (Util.isObject(this.scale))
+			this.scale.x = this.scale.y = 1
+			this.scale = this.scale
+		else
+			this.scale = 1
 		this.playAnimation()
 		this.setTransition()
-
 		if (this.inTicker)
 			Event.removeTicker(this)
 
