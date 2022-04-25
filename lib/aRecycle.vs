@@ -3,17 +3,17 @@
 #BEGIN CLIENTCODE
 #BEGIN JAVASCRIPT
 
-(function() {
-	let engineWaitId = setInterval(function() {
+(() => {
+	const engineWaitId = setInterval(() => {
 		if (VS.Client) {
 			clearInterval(engineWaitId);
 			buildRecycle();
 		}
 	})
 
-	let buildRecycle = function() {
+	const buildRecycle = () => {
 		const COLLECTION_LIMIT = 200;
-		let aRecycle = {};
+		const aRecycle = {};
 		aRecycle.version = '0.1.0';
 		// debugging is whether this library is in debug mode. Extra warnings will be thrown in this mode to help explain any issues that may arise.
 		aRecycle.debugging = false;
@@ -58,7 +58,7 @@
 						}
 						// if this recycledArray has more diobs than the collection can handle, the access is deleted
 						if (pCollected.length + pCollection.length > COLLECTION_LIMIT) {
-							let remainder = pCollected.length - (COLLECTION_LIMIT - pCollection.length);
+							const remainder = pCollected.length - (COLLECTION_LIMIT - pCollection.length);
 							for (let c = pCollected.length; c >= remainder; c--) {
 								if (pCollected[c].constructor === Diob) {
 									pCollected.splice(c, 1);
@@ -101,7 +101,7 @@
 		}
 
 		aRecycle.isInCollection = function(pType='Diob', pNum=1, pCollection=[], pObject=false, ...pRest) {
-			let reuseArray = [];
+			const reuseArray = [];
 			let added = 0;
 			let quantity = pNum;
 			if (!pCollection.length) {
@@ -134,7 +134,7 @@
 				}
 				// if the amount of diobs we were supposed to get is greater than the diobs we have gotten from the array, we need to generate more.
 				if (pNum > added) {
-					let missingQuantity = pNum - added;
+					const missingQuantity = pNum - added;
 					for (let x = 0; x < missingQuantity; x++) {
 						if (pObject) {
 							reuseArray.push(VS.newObject(pType, ...pRest));
@@ -177,8 +177,8 @@
 				pDiob.text = '';
 				pDiob.composite = '';
 				if (pDiob.baseType === 'Movable') pDiob.move();
-				for (let o of pDiob.getOverlays()) pDiob.removeOverlay(o.type);
-				for (let fN of pDiob.getFilters()) pDiob.removeFilter(fN);
+				for (const o of pDiob.getOverlays()) pDiob.removeOverlay(o.type);
+				for (const fN of pDiob.getFilters()) pDiob.removeFilter(fN);
 			}
 			pDiob.aRecycleCollected = true;
 			pDiob.inTicker = null;
