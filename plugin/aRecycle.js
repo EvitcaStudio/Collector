@@ -8,7 +8,8 @@
 	})
 
 	const buildRecycle = () => {
-		const COLLECTION_LIMIT = 200;
+		const WARNING_LIMIT = 200;
+		let COLLECTION_LIMIT = 20;
 		const aRecycle = {};
 		aRecycle.version = '0.1.0';
 		// debugging is whether this library is in debug mode. Extra warnings will be thrown in this mode to help explain any issues that may arise.
@@ -18,6 +19,15 @@
 		VS.Client.___EVITCA_aRecycle = true;
 		VS.Client.aRecycle = aRecycle;
 		VS.World.global.aRecycle = aRecycle;
+
+		aRecycle.setMaxLimit = function(pLimit) {
+			if (typeof(pLimit) === 'number') {
+				COLLECTION_LIMIT = Math.round(pLimit);
+				if (COLLECTION_LIMIT > WARNING_LIMIT) {
+					console.warn('aRecycle: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
+				}
+			}
+		}
 
 		aRecycle.collect = function(pCollected, pCollection) {
 			let recycledArray = false;
