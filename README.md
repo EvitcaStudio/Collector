@@ -35,8 +35,8 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
   - desc: This is the plugin equivalent of `new Diob(pType)`. 
   - returns: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.
 
-### Diob|Object.clean()
-   - desc: This is a user defined function that will be called when this instance is collected. This should reset this instance to it's default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn't know about. Internal cleaning involves:
+### Diob|Object.clean() `event`
+   - desc: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it's default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn't know about. Internal cleaning involves:
       - Removing color&text
       - Removing overlays&filters
       - Removing it from an interface if it is a interface element.
@@ -45,11 +45,11 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
       - Resetting angle&scale&composite&positionalData
       - Cancels movement
 
-### Diob|Object.onDumped(...pParam)
+### Diob|Object.onDumped(...pParam) `event`
    - pParam: The argument(s) that were passed inside of `aReycle.isInCollection`.
    - desc: Event function that is called when this object has been removed from a collection and is ready for use. This is identical to the event function `Object.onNew`
 
-### Diob|Object.onCollected()
+### Diob|Object.onCollected() `event`
    - desc: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
 
 ## Examples  
