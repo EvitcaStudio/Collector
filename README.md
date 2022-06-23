@@ -26,11 +26,10 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
   - `pCollection`: The collection array this instance is going to. If the collection's length is `>=` then the set max limit then pCollected will be deleted.
   - `desc`: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.
 
-###  aRecycle.isInCollection(pType, pNum, pCollection, pObject, [pArg[, pArg[, ... pArg]]])
+###  aRecycle.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])
   - `pType`: The type of instance you want to get
   - `pNum`: The amount of pType(s) you want to get out of this collection
   - `pCollection`: The collection array to check inside of
-  - `pObject`: Whether this is of the `Object` base type ⚠️warning (This is about to become depracated)
   - `pArg`: Any argument(s) to pass to the `instance.onNew` or the `instance.onDumped` event function.
   - `desc`: This is the plugin equivalent of `new Diob(pType)`. 
   - `returns`: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.
@@ -130,7 +129,7 @@ Diob
          this.name = pName // 'ballToy'
 World
    onNew()
-      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, false, 'ballToy') // DiobToyInstance  
+      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'ballToy') // DiobToyInstance  
 ```
 
 #### Using `instance.onDumped` like a pro
@@ -149,7 +148,7 @@ Diob
          this.setup(pName)
 World
    onNew()
-      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, false, 'ballToy') // DiobToyInstance  
+      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'ballToy') // DiobToyInstance  
 ```
 
 #### Using `instance.onCollected`
