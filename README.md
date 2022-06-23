@@ -15,42 +15,42 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 
 ## API  
 ### aRecyle.toggleDebug()
-   - desc: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
+   - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
 
 ###  aRecycle.setMaxLimit(pLimit)
-   - pLimit: The new max limit on collections. (DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY ⚠️)  
-   - desc: Sets a limit on how much each collection array can recycle before deleting the access. The max is 20 by default. 
+   - `pLimit`: The new max limit on collections. (DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY ⚠️)  
+   - `desc`: Sets a limit on how much each collection array can recycle before deleting the access. The max is 20 by default. 
 
 ###  aRecycle.collect(pCollected, pCollection)
-  - pCollected: The instance|array to collect into the collection array pCollection.
-  - pCollection: The collection array this instance is going to. If the collection's length is `>=` then the set max limit then pCollected will be deleted.
-  - desc: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.
+  - `pCollected`: The instance|array to collect into the collection array pCollection.
+  - `pCollection`: The collection array this instance is going to. If the collection's length is `>=` then the set max limit then pCollected will be deleted.
+  - `desc`: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.
 
 ###  aRecycle.isInCollection(pType, pNum, pCollection, pObject, [pArg[, pArg[, ... pArg]]])
-  - pType: The type of instance you want to get
-  - pNum: The amount of pType(s) you want to get out of this collection
-  - pCollection: The collection array to check inside of
-  - pObject: Whether this is of the `Object` base type ⚠️warning (This is about to become depracated)
-  - pArg: Any argument(s) to pass to the `instance.onNew` or the `instance.onDumped` event function.
-  - desc: This is the plugin equivalent of `new Diob(pType)`. 
-  - returns: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.
+  - `pType`: The type of instance you want to get
+  - `pNum`: The amount of pType(s) you want to get out of this collection
+  - `pCollection`: The collection array to check inside of
+  - `pObject`: Whether this is of the `Object` base type ⚠️warning (This is about to become depracated)
+  - `pArg`: Any argument(s) to pass to the `instance.onNew` or the `instance.onDumped` event function.
+  - `desc`: This is the plugin equivalent of `new Diob(pType)`. 
+  - `returns`: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.
 
 ### Diob|Object.clean() `event`
-   - desc: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it's default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn't know about. Internal cleaning involves:
-      - Removing color&text
-      - Removing overlays&filters
-      - Removing it from an interface if it is a interface element.
-      - Removing it from the ticker system
-      - Resetting animations&transitions
-      - Resetting angle&scale&composite&positionalData
-      - Cancels movement
+   - `desc`: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it's default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn't know about. Internal cleaning involves:
+      - `Removing color&text`
+      - `Removing overlays&filters`
+      - `Removing it from an interface if it is a interface element.`
+      - `Removing it from the ticker system`
+      - `Resetting animations&transitions`
+      - `Resetting angle&scale&composite&positionalData`
+      - `Cancels movement`
 
 ### Diob|Object.onDumped(...pParam) `event`
-   - pParam: The argument(s) that were passed inside of `aReycle.isInCollection`.
-   - desc: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin's equivalent of `Object.onNew`
+   - `pParam`: The argument(s) that were passed inside of `aReycle.isInCollection`.
+   - `desc`: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin's equivalent of `Object.onNew`
 
 ### Diob|Object.onCollected() `event`
-   - desc: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
+   - `desc`: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
 
 ## Examples  
 #### Get an instance 
