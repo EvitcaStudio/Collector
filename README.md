@@ -124,12 +124,12 @@ Diob
       atlasName = 'toys'
       iconName = 'normal_toy'
       onNew(pName)
-         this.name = pName // 'ballToy'
+         this.name = pName // 'toyBall'
       function onDumped(pName)
-         this.name = pName // 'ballToy'
+         this.name = pName // 'toyBall'
 World
    onNew()
-      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'ballToy') // DiobToyInstance  
+      const toyBall = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onDumped` like a pro
@@ -143,12 +143,12 @@ Diob
       onNew(pName)
          this.setup(pName)
       function setup(pName)
-         this.name = pName
+         this.name = pName // 'toyBall'
       function onDumped(pName)
          this.setup(pName)
 World
    onNew()
-      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'ballToy') // DiobToyInstance  
+      const toyBall = aRecycle.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onCollected`
@@ -163,8 +163,8 @@ Diob
          World.log('I have been collected')
 World
    onNew()
-      const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
-      aReycle.collect(ballToy, toyBin)
+      const toyBall = aRecycle.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance
+      aReycle.collect(toyBall, toyBin)
 ```
 
       
