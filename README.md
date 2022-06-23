@@ -49,5 +49,5 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
    - desc: Event function that is called when this object has been removed from a collection and is ready for use. This is identical to the event function `Object.onNew`
 
 
-### Diob|Object.onCollected(...pParam)
+### Diob|Object.onCollected()
    - desc: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
