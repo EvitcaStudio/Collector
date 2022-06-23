@@ -47,7 +47,7 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 
 ### Diob|Object.onDumped(...pParam) `event`
    - pParam: The argument(s) that were passed inside of `aReycle.isInCollection`.
-   - desc: Event function that is called when this object has been removed from a collection and is ready for use. This is identical to the event function `Object.onNew`
+   - desc: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin's equivalent of `Object.onNew`
 
 ### Diob|Object.onCollected() `event`
    - desc: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
