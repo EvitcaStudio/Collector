@@ -14,7 +14,7 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 #### #INCLUDE SERSCRIPT aRecycle.js  
 
 ## API  
-### aRecyle.toggleDebug()
+### aRecycle.toggleDebug()
    - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
 
 ###  aRecycle.setMaxLimit(pLimit)
