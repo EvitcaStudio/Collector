@@ -93,7 +93,7 @@ World
       // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!
 ```
 
-#### How to use instance.onDumped  
+#### How to use `instance.onDumped`  
 ###### Any time a instance is removed from a collection array it will call `instance.onDumped()` if it is a defined function.  
 ```js
 const toyBin = []
@@ -116,7 +116,7 @@ World
       const toy = aRecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
 ```
 
-#### How to use instance.onDumped with parameters
+#### How to use `instance.onDumped` with parameters
 ###### If your collection array starts off empty you must handle the condition of aRecycle calling `new Diob` and in return the event function `instance.onNew` being called!  
 ```js
 const toyBin = []
@@ -133,8 +133,8 @@ World
       const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, false, 'ballToy') // DiobToyInstance  
 ```
 
-#### Using instance.onDumped like a pro
-###### Since instance.onNew and `instance.onDumped` are virutally the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don't have to duplicate code. In this case `setup` is the handler function.  
+#### Using `instance.onDumped` like a pro
+###### Since `instance.onNew` and `instance.onDumped` are virutally the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don't have to duplicate code. In this case `setup` is the handler function.  
 ```js
 const toyBin = []
 Diob
@@ -152,7 +152,7 @@ World
       const ballToy = aRecycle.isInCollection('Diob/Toy', 1, toyBin, false, 'ballToy') // DiobToyInstance  
 ```
 
-#### Using instance.onCollected
+#### Using `instance.onCollected`
 ###### Any time a diob is collected, aRecyle will call `instance.onCollected` if it is a defined function.  
 ```js
 const toyBin = []
