@@ -25,91 +25,90 @@
 		}
 
 		aRecycle.collect = function(pCollected, pCollection) {
-			let recycledArray = false;
-			if (pCollected && typeof(pCollected) === 'object' && Object.keys(pCollected).length) {
+			const collectingArray = Array.isArray(pCollected);
+			// If there was nothing passed to be collected
+			if (!pCollected) {
+				console.error('aRecycle Module [collect]: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');
+				return;
+			}
+			// If you are passing a empty object it will not be collected
+			if (typeof(pCollected) === 'object' && !collectingArray && !Object.keys(pCollected).length) {
 				console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');
 				return;
 			}
-
-			if (!pCollected.type) {
+			// If you are passing an object that is not a Diob or a Object, it will not be accepted. Vylocity types all have the type variable
+			if (!pCollected.type && !collectingArray) {
 				console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');
 				return;
 			}
 
 			if (Array.isArray((pCollection))) {
-				if (pCollected) {
-					if (pCollection.includes(pCollected)) {
-						if (this.debugging) console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
+				if (pCollection.includes(pCollected)) {
+					if (this.debugging) console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
+					return;
+				}
+				if (collectingArray) {
+					if (!pCollected.length) {
+						console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
 						return;
 					}
-					if (Array.isArray((pCollected))) {
-						if (!pCollected.length) {
-							console.error('aRecycle Module [collect]: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
-							return;
-						}
-						recycledArray = true;
-					}
-
-					if (recycledArray) {
-						// If you try to collect a diob to be recycled and the collection you are recyling it to is full, it is deleted instead.
-						if (pCollection.length >= this.collectionLimit) {
-							for (let i = pCollected.length - 1; i >= 0; i--) {
-								const diob = pCollected[i];
-								if (diob.constructor === Diob) {
-									this.cleanDiob(diob);
-									VS.delDiob(diob);
-								} else if (Object.keys(diob).length) {
-									this.cleanDiob(diob);
-									VS.delObject(diob);
-								}
-							}
-							return;
-						}
-						// If this recycledArray has more diobs than the collection can handle, the access is deleted
-						if (pCollected.length + pCollection.length > this.collectionLimit) {
-							const remainder = pCollected.length - (this.collectionLimit - pCollection.length);
-							for (let c = pCollected.length - 1; c >= remainder; c--) {
-								const diob = pCollected[c];
-								if (diob.constructor === Diob) {
-									pCollected.splice(c, 1);
-									this.cleanDiob(diob);
-									VS.delDiob(diob);
-								} else if (Object.keys(diob).length) {
-									pCollected.splice(c, 1);
-									this.cleanDiob(diob);
-									VS.delObject(diob);
-								}
-							}
-						}
-						// The remaining diobs that are in the recycledArray is now cleaned and processed and added to the collection
-						for (let k = pCollected.length - 1; k >= 0; k--) {
-							const diob = pCollected[k];
-							if (typeof(diob.onCollected) === 'function') diob.onCollected();
-							if (!pCollection.includes(diob)) pCollection.push(diob);
-							this.cleanDiob(diob);
-						}
-						return;
-					} else {
-						// If you try to collect a diob to be recycled and the collection you are recyling it to is full, it is deleted instead.
-						if (pCollection.length >= this.collectionLimit) {
-							if (pCollected.constructor === Diob) {
-								this.cleanDiob(pCollected);
-								VS.delDiob(pCollected);
-							} else if (Object.keys(pCollected).length) {
-								this.cleanDiob(pCollected);
-								VS.delObject(pCollected);
-							}
-							return;
-						}
-						if (typeof(pCollected.onCollected) === 'function') pCollected.onCollected();
-						if (!pCollection.includes(pCollected)) pCollection.push(pCollected);
-						this.cleanDiob(pCollected);
-						return;
-					}
-				} else {
-					console.error('aRecycle Module [collect]: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a diob or an object.');
 				}
 
+				if (collectingArray) {
+					// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.
+					if (pCollection.length >= this.collectionLimit) {
+						for (let i = pCollected.length - 1; i >= 0; i--) {
+							const instance = pCollected[i];
+							if (instance.constructor === Diob) {
+								this.cleanInstance(instance);
+								VS.delDiob(instance);
+							} else {
+								this.cleanInstance(instance);
+								VS.delObject(instance);
+							}
+						}
+						return;
+					// If this collectedArray has more instances than the collection can handle, the access is deleted
+					} else if (pCollected.length + pCollection.length > this.collectionLimit) {
+						const remainder = pCollected.length - (this.collectionLimit - pCollection.length);
+						for (let c = remainder; c > 0; c--) {
+							const instance = pCollected[c];
+							if (instance.constructor === Diob) {
+								pCollected.splice(c, 1);
+								this.cleanInstance(instance);
+								VS.delDiob(instance);
+							} else {
+								pCollected.splice(c, 1);
+								this.cleanInstance(instance);
+								VS.delObject(instance);
+							}
+						}
+					}
+					// The remaining instances that are in the collectedArray is now cleaned and processed and added to the collection
+					for (let k = pCollected.length - 1; k >= 0; k--) {
+						const instance = pCollected[k];
+						if (typeof(instance.onCollected) === 'function') instance.onCollected();
+						if (!pCollection.includes(instance)) pCollection.push(instance);
+						this.cleanInstance(instance);
+					}
+					return;
+				} else {
+					// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.
+					if (pCollection.length >= this.collectionLimit) {
+						if (pCollected.constructor === Diob) {
+							this.cleanInstance(pCollected);
+							VS.delDiob(pCollected);
+						} else {
+							this.cleanInstance(pCollected);
+							VS.delObject(pCollected);
+						}
+						return;
+					}
+					if (typeof(pCollected.onCollected) === 'function') pCollected.onCollected();
+					if (!pCollection.includes(pCollected)) pCollection.push(pCollected);
+					this.cleanInstance(pCollected);
+					return;
+				}
 			} else {
 				console.error('aRecycle Module [collect]: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
 			}
@@ -134,22 +133,22 @@
 			} else {
 				for (let j = pCollection.length - 1; j >= 0; j--) {
 					if (quantity) {
-						let diobInCollection = pCollection[j];
-						if (diobInCollection.type === pType) {
+						let instanceInCollection = pCollection[j];
+						if (instanceInCollection.type === pType) {
 							// Remove it from the collection
 							pCollection.splice(j, 1);
 							// Add it to the array that you will be getting from this collection
-							reuseArray.push(diobInCollection);
-							// Label that this diob is no longer considered to be collection
-							diobInCollection.aRecycleCollected = false;
-							// If this diob has a `onDumped` function defined call it.
-							if (typeof(diobInCollection.onDumped) === 'function') diobInCollection.onDumped(...pRest);
+							reuseArray.push(instanceInCollection);
+							// Label that this instance is no longer considered to be collection
+							instanceInCollection.aRecycleCollected = false;
+							// If this instance has a `onDumped` function defined call it.
+							if (typeof(instanceInCollection.onDumped) === 'function') instanceInCollection.onDumped(...pRest);
 							added++;
 							quantity--;
 						}
 					}
 				}
-				// If the amount of diobs we were supposed to get is greater than the diobs we have gotten from the array, we need to generate more.
+				// If the amount of instances we were supposed to get is greater than the instances we have gotten from the array, we need to generate more.
 				if (pNum > added) {
 					const missingQuantity = pNum - added;
 					for (let x = 0; x < missingQuantity; x++) {
@@ -166,7 +165,7 @@
 			}
 		}
 
-		aRecycle.cleanDiob = function(pDiob) {
+		aRecycle.cleanInstance = function(pDiob) {
 			if (pDiob) {
 				if (pDiob.constructor === Diob) {
 					const isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VS.Type.getInheritances(pDiob.type).includes('Interface'));
