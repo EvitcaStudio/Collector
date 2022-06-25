@@ -15,7 +15,9 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 
 ## API  
 ### `Javascript`
-#### window.aRecycle|VS.Client.aRecycle  
+#### window.aRecycle|global.aRecycle|VS.Client.aRecycle  
+  > ⚠️ window.aRecycle is only available `client-side`.  
+  > ⚠️ global.aRecycle is only available `server-side`.  
   > ⚠️ VS.Client.aRecycle is only available `client-side`.  
   
 ### `VyScript`  
