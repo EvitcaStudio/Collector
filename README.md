@@ -1,5 +1,5 @@
 # aRecycle
-This plugin gives you an easy and beneficial way to reuse instances inside of the game engine [Vylocity](https://vylocity.com), as well as slow down the garbage collector.
+This plugin gives you an easy and beneficial way to reuse instances inside of the [Vylocity](https://vylocity.com) game engine, as well as slow down the garbage collector.
 
 ## Supports the following plugin's internal methods automatically  
 * **aParticleGenerator**  
@@ -8,12 +8,20 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 
 ## Implementation 
 
-`CLIENT-SIDE`  
+### `CLIENT-SIDE`  
 #### #INCLUDE SCRIPT aRecycle.js  
-`SERVER-SIDE` 
+### `SERVER-SIDE` 
 #### #INCLUDE SERSCRIPT aRecycle.js  
 
 ## API  
+### `Javascript`
+#### window.aRecycle|VS.Client.aRecycle  
+  > ⚠️ VS.Client.aRecycle is only available `client-side`.  
+  
+### `VyScript`  
+#### aRecycle|Client.aRecycle  
+  > ⚠️ Client.aRecycle is only available `client-side`.  
+
 ### aRecycle.toggleDebug()
    - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
 
@@ -93,7 +101,7 @@ World
 ```
 
 #### How to use `instance.onDumped`  
-###### Any time a instance is removed from a collection array it will call `instance.onDumped()` if it is a defined function.  
+###### Any time an instance is removed from a collection array it will call `instance.onDumped()` if it is a defined function.  
 ```js
 const toyBin = []
 Diob
