@@ -13,14 +13,17 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 ### `SERVER-SIDE` 
 #### #INCLUDE SERSCRIPT aRecycle.js  
 
-## API  
+## How to reference  
+
 ### `Javascript`
 #### aRecycle|VS.Client.aRecycle  
   > ⚠️ VS.Client.aRecycle is only available `client-side`.  
   
 ### `VyScript`  
 #### aRecycle|Client.aRecycle  
-  > ⚠️ Client.aRecycle is only available `client-side`.  
+  > ⚠️ Client.aRecycle is only available `client-side`. 
+
+## API  
 
 ### aRecycle.toggleDebug()
    - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
