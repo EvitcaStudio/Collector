@@ -14,11 +14,8 @@
 	
 		if (VS.World.getCodeType() !== 'server') VS.Type.setVariables('Client', {___EVITCA_aRecycle: true, aRecycle: aRecycle});
 		VS.global.aRecycle = aRecycle;
-		if (VS.World.getCodeType() === 'server') {
-			global.aRecycle = aRecycle;
-		} else {
-			window.aRecycle = aRecycle;
-		}
+		if (VS.World.getCodeType() === 'server') global.aRecycle = aRecycle;
+		if (VS.World.getCodeType() !== 'server') window.aRecycle = aRecycle;
 
 		aRecycle.setMaxLimit = function(pLimit) {
 			if (typeof(pLimit) === 'number') {
