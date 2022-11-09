@@ -17,11 +17,13 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
 
 ### `Javascript`
 #### aRecycle|VS.Client.aRecycle  
-  > ⚠️ VS.Client.aRecycle is only available `client-side`.  
+> **Warning**  
+VS.Client.aRecycle is only available `client-side`.  
   
 ### `VyScript`  
 #### aRecycle|Client.aRecycle  
-  > ⚠️ Client.aRecycle is only available `client-side`. 
+> **Warning**  
+Client.aRecycle is only available `client-side`.  
 
 ## API  
 
@@ -29,8 +31,10 @@ This plugin gives you an easy and beneficial way to reuse instances inside of th
    - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
 
 ###  aRecycle.setMaxLimit(pLimit)
-   - `pLimit`: The new max limit on collections. (DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY ⚠️)  
-   - `desc`: Sets a limit on how much each collection array can recycle before deleting the access. The max is 20 by default. 
+   - `pLimit`: The new max limit on collections. 
+   - `desc`: Sets a limit on how much each collection array can recycle before deleting the access. The max is `20` by default. 
+> **Warning**  
+(DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)  
 
 ###  aRecycle.collect(pCollected, pCollection)
   - `pCollected`: The instance|array to collect into the collection array pCollection.
