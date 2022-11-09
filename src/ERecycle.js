@@ -6,6 +6,7 @@
 			this.collectionLimit = 20;
 			this.WARNING_LIMIT = 200;
 			this.basicCollection = [];
+			// The version of this library
 			this.version = '1.0.0';
 		}
 
@@ -212,6 +213,7 @@
 	}
 
 	const ERecycleManager = new ERecycle();
-	VYLO.global.ERecycle = ERecycleManager;
+	if (typeof(VYLO) !== 'undefined') VYLO.global.ERecycle = ERecycleManager;
 	globalThis.ERecycle = ERecycleManager;
+	console.log("%cERecycle.js: ✅ ERecycle.js@" + ERecycle.version, "font-family:arial;");
 })();
