@@ -215,5 +215,5 @@
 	const ERecycleManager = new ERecycle();
 	if (typeof(VYLO) !== 'undefined') VYLO.global.ERecycle = ERecycleManager;
 	globalThis.ERecycle = ERecycleManager;
-	console.log("%cERecycle.js: ✅ ERecycle.js@" + ERecycle.version, "font-family:arial;");
+	console.log("%cERecycle.js: ✅ ERecycle.js@" + ERecycleManager.version, "font-family:arial;");
 })();
