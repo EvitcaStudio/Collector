@@ -10,9 +10,9 @@ This simply means, instances are recycled automatically inside of the aforementi
 ## Implementation 
 
 ### `CLIENT-SIDE`  
-#### #INCLUDE SCRIPT ERecycle.min.js  
+#### #INCLUDE SCRIPT erecycle.min.js  
 ### `SERVER-SIDE` 
-#### #INCLUDE SERSCRIPT ERecycle.min.js  
+#### #INCLUDE SERSCRIPT erecycle.min.js  
 
 ## How to reference  
 
