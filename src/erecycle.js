@@ -1,4 +1,8 @@
 (() => {
+	const protoDiob = VYLO.newDiob();
+	const DiobConstructor = protoDiob.__proto__.constructor;
+	VYLO.delDIob(protoDiob);
+
 	class ERecycle {
 		constructor() {
 			// Debugging is whether this library is in debug mode. Extra warnings will be thrown in this mode to help explain any issues that may arise.
@@ -54,7 +58,7 @@
 					if (pCollection.length >= this.collectionLimit) {
 						for (let i = pCollected.length - 1; i >= 0; i--) {
 							const instance = pCollected[i];
-							if (instance instanceof Diob) {
+							if (instance instanceof DiobConstructor) {
 								this.cleanInstance(instance);
 								VYLO.delDiob(instance);
 							} else {
@@ -68,7 +72,7 @@
 						const remainder = pCollected.length - (this.collectionLimit - pCollection.length);
 						for (let c = remainder; c > 0; c--) {
 							const instance = pCollected[c];
-							if (instance instanceof Diob) {
+							if (instance instanceof DiobConstructor) {
 								pCollected.splice(c, 1);
 								this.cleanInstance(instance);
 								VYLO.delDiob(instance);
@@ -90,7 +94,7 @@
 				} else {
 					// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.
 					if (pCollection.length >= this.collectionLimit) {
-						if (pCollected instanceof Diob) {
+						if (pCollected instanceof DiobConstructor) {
 							this.cleanInstance(pCollected);
 							VYLO.delDiob(pCollected);
 						} else {
@@ -162,7 +166,7 @@
 	
 		cleanInstance(pDiob) {
 			if (pDiob) {
-				if (pDiob instanceof Diob) {
+				if (pDiob instanceof DiobConstructor) {
 					const isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VYLO.Type.getInheritances(pDiob.type).includes('Interface'));
 					if (pDiob.color) {
 						if (typeof(pDiob.color) === 'object' && pDiob.color.constructor === Object) {
