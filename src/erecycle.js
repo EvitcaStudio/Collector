@@ -1,7 +1,7 @@
 (() => {
 	const protoDiob = VYLO.newDiob();
 	const DiobConstructor = protoDiob.__proto__.constructor;
-	VYLO.delDIob(protoDiob);
+	VYLO.delDiob(protoDiob);
 
 	class ERecycle {
 		constructor() {
