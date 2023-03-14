@@ -229,5 +229,4 @@ class ERecycleSingleton {
 		this.debugging = !this.debugging;
 	}
 }
-console.log("%cERecycle.js: ✅ ERecycle.js@" + ERecycleSingleton.version, "font-family:arial;");
 export const ERecycle = new ERecycleSingleton();
