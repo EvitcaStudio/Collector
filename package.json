@@ -1,0 +1,19 @@
+{
+  "name": "erecycle",
+  "version": "1.0.0",
+  "description": "A recycle manager",
+  "main": "erecyle.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EvitcaStudio/ERecycle.git"
+  },
+  "author": "https://github.com/doubleactii",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/EvitcaStudio/ERecycle/issues"
+  },
+  "homepage": "https://github.com/EvitcaStudio/ERecycle#readme"
+}
