@@ -16,9 +16,9 @@
         "typeInference": {"enable": true},
         "brand": {
           "logo": "./evitcastudio_round_branding.png",
-          "title": "ERecycle",
+          "title": "Collector",
           "description": "A recycle manager.",
-          "repository": "https://github.com/EvitcaStudio/ERecycle",
+          "repository": "https://github.com/EvitcaStudio/Collector",
           "author": "https://github.com/doubleactii",
           "image": "./evitcastudio_round_branding.png"
         }

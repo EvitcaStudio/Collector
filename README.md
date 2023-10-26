@@ -1,44 +1,39 @@
-# ERecycle
+# Collector
 This plugin gives you an easy and beneficial way to reuse instances inside of the [Vylocity](https://vylocity.com) game engine, as well as slow down the garbage collector.
 
-## Supports the following plugin's internal methods automatically  
-* **aParticleGenerator**  
-* **aBlip**  
-> **Note**  
-This simply means, instances are recycled automatically inside of the aforementioned plugins.  
 
 ## Implementation 
 
 ### `CLIENT-SIDE`  
-#### #INCLUDE SCRIPT erecycle.min.js  
+#### #INCLUDE SCRIPT collector.min.js  
 ### `SERVER-SIDE` 
-#### #INCLUDE SERSCRIPT erecycle.min.js  
+#### #INCLUDE SERSCRIPT collector.min.js  
 
 ## How to reference  
 
 ### `Javascript`  
-ERecycle  
+Collector  
   
 ### `VyScript`  
-ERecycle  
+Collector  
 
 ## API  
 
-###  ERecycle.toggleDebug()
+###  Collector.toggleDebug()
    - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.
 
-###  ERecycle.setMaxLimit(pLimit)
+###  Collector.setMaxLimit(pLimit)
    - `pLimit`: The new max limit on collections. 
    - `desc`: Sets a limit on how much each collection array can recycle before deleting the access. The max is `20` by default. 
 > **Warning**  
 (DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)  
 
-###  ERecycle.collect(pCollected, pCollection)
+###  Collector.collect(pCollected, pCollection)
   - `pCollected`: The instance|array to collect into the collection array pCollection.
   - `pCollection`: The collection array this instance is going to. If the collection's length is `>=` then the set max limit then pCollected will be deleted.
   - `desc`: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.
 
-###  ERecycle.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])
+###  Collector.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])
   - `pType`: The type of instance you want to get
   - `pNum`: The amount of pType(s) you want to get out of this collection
   - `pCollection`: The collection array to check inside of
@@ -57,7 +52,7 @@ ERecycle
       - `Cancels movement`
 
 ###  Diob|Object.onDumped(...pParam) `event`
-   - `pParam`: The argument(s) that were passed inside of `ERecycle.isInCollection`.
+   - `pParam`: The argument(s) that were passed inside of `Collector.isInCollection`.
    - `desc`: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin's equivalent of `Object.onNew`
 
 ###  Diob|Object.onCollected() `event`
@@ -71,7 +66,7 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = ERecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance 
+      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance 
 ```
 
 #### Get an array of instances
@@ -82,7 +77,7 @@ Diob
    Toy
 World
    onNew()
-      const toysForParty = ERecycle.isInCollection('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
+      const toysForParty = Collector.isInCollection('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
 ```
 #### Recycle an instance  
 
@@ -92,9 +87,9 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = ERecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
       // a few moments later
-      ERecycle.collect(toyForParty, toyBin)
+      Collector.collect(toyForParty, toyBin)
       // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!
 ```
 
@@ -110,17 +105,17 @@ Diob
          World.log('I was removed from toyBin so you can use me again!')
 World
    onNew()
-      // At this point in time toyBin has no toys in it so ERecycle creates the instance for you
-      const toyForParty = ERecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      // At this point in time toyBin has no toys in it so Collector creates the instance for you
+      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
       // We have just put the toy into the toybin
-      ERecycle.collect(toyForParty, toyBin)
+      Collector.collect(toyForParty, toyBin)
       // A few moments later we decide we want to get that toy back out
       // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin
-      const toy = ERecycle.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toy = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
 ```
 
 #### How to use `instance.onDumped` with parameters  
-If your collection array starts off empty you must handle the condition of ERecycle calling `new Diob` and in return the event function `instance.onNew` being called!  
+If your collection array starts off empty you must handle the condition of Collector calling `new Diob` and in return the event function `instance.onNew` being called!  
 ```js
 const toyBin = []
 Diob
@@ -131,7 +126,7 @@ Diob
          this.name = pName // 'toyBall'
 World
    onNew()
-      const toyBall = ERecycle.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onDumped` like a pro  
@@ -148,7 +143,7 @@ Diob
          this.setup(pName)
 World
    onNew()
-      const toyBall = ERecycle.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onCollected`  
@@ -161,8 +156,8 @@ Diob
          World.log('I have been collected')
 World
    onNew()
-      const toyBall = ERecycle.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance
-      ERecycle.collect(toyBall, toyBin)
+      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance
+      Collector.collect(toyBall, toyBin)
 ```
 
       

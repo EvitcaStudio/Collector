@@ -1,14 +1,14 @@
 window.esdocSearchIndex = [
   [
-    "erecycle/src/erecycle.mjs~erecycle",
-    "variable/index.html#static-variable-ERecycle",
-    "<span>ERecycle</span> <span class=\"search-result-import-path\">erecycle/src/erecycle.mjs</span>",
+    "collector/src/collector.mjs~collector",
+    "variable/index.html#static-variable-Collector",
+    "<span>Collector</span> <span class=\"search-result-import-path\">collector/src/collector.mjs</span>",
     "variable"
   ],
   [
-    "erecycle/src/erecycle.mjs~erecyclesingleton",
-    "class/src/erecycle.mjs~ERecycleSingleton.html",
-    "<span>ERecycleSingleton</span> <span class=\"search-result-import-path\">erecycle/src/erecycle.mjs</span>",
+    "collector/src/collector.mjs~collectorsingleton",
+    "class/src/collector.mjs~CollectorSingleton.html",
+    "<span>CollectorSingleton</span> <span class=\"search-result-import-path\">collector/src/collector.mjs</span>",
     "class"
   ],
   [
@@ -294,81 +294,81 @@ window.esdocSearchIndex = [
     "external"
   ],
   [
-    "src/erecycle.mjs",
-    "file/src/erecycle.mjs.html",
-    "src/erecycle.mjs",
+    "src/collector.mjs",
+    "file/src/collector.mjs.html",
+    "src/collector.mjs",
     "file"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#warning_limit",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-member-WARNING_LIMIT",
-    "src/erecycle.mjs~ERecycleSingleton#WARNING_LIMIT",
+    "src/collector.mjs~collectorsingleton#warning_limit",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-WARNING_LIMIT",
+    "src/collector.mjs~CollectorSingleton#WARNING_LIMIT",
     "member"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#basiccollection",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-member-basicCollection",
-    "src/erecycle.mjs~ERecycleSingleton#basicCollection",
+    "src/collector.mjs~collectorsingleton#basiccollection",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-basicCollection",
+    "src/collector.mjs~CollectorSingleton#basicCollection",
     "member"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#cleaninstance",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-method-cleanInstance",
-    "src/erecycle.mjs~ERecycleSingleton#cleanInstance",
+    "src/collector.mjs~collectorsingleton#cleaninstance",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-method-cleanInstance",
+    "src/collector.mjs~CollectorSingleton#cleanInstance",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#collect",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-method-collect",
-    "src/erecycle.mjs~ERecycleSingleton#collect",
+    "src/collector.mjs~collectorsingleton#collect",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-method-collect",
+    "src/collector.mjs~CollectorSingleton#collect",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#collectionlimit",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-member-collectionLimit",
-    "src/erecycle.mjs~ERecycleSingleton#collectionLimit",
+    "src/collector.mjs~collectorsingleton#collectionlimit",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-collectionLimit",
+    "src/collector.mjs~CollectorSingleton#collectionLimit",
     "member"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#constructor",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-constructor-constructor",
-    "src/erecycle.mjs~ERecycleSingleton#constructor",
+    "src/collector.mjs~collectorsingleton#constructor",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-constructor-constructor",
+    "src/collector.mjs~CollectorSingleton#constructor",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#debugging",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-member-debugging",
-    "src/erecycle.mjs~ERecycleSingleton#debugging",
+    "src/collector.mjs~collectorsingleton#debugging",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-debugging",
+    "src/collector.mjs~CollectorSingleton#debugging",
     "member"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#isincollection",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-method-isInCollection",
-    "src/erecycle.mjs~ERecycleSingleton#isInCollection",
+    "src/collector.mjs~collectorsingleton#isincollection",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-method-isInCollection",
+    "src/collector.mjs~CollectorSingleton#isInCollection",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#setmaxlimit",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-method-setMaxLimit",
-    "src/erecycle.mjs~ERecycleSingleton#setMaxLimit",
+    "src/collector.mjs~collectorsingleton#setmaxlimit",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-method-setMaxLimit",
+    "src/collector.mjs~CollectorSingleton#setMaxLimit",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton#toggledebug",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#instance-method-toggleDebug",
-    "src/erecycle.mjs~ERecycleSingleton#toggleDebug",
+    "src/collector.mjs~collectorsingleton#toggledebug",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-method-toggleDebug",
+    "src/collector.mjs~CollectorSingleton#toggleDebug",
     "method"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton.diobconstructor",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#static-member-DiobConstructor",
-    "src/erecycle.mjs~ERecycleSingleton.DiobConstructor",
+    "src/collector.mjs~collectorsingleton.diobconstructor",
+    "class/src/collector.mjs~CollectorSingleton.html#static-member-DiobConstructor",
+    "src/collector.mjs~CollectorSingleton.DiobConstructor",
     "member"
   ],
   [
-    "src/erecycle.mjs~erecyclesingleton.version",
-    "class/src/erecycle.mjs~ERecycleSingleton.html#static-member-version",
-    "src/erecycle.mjs~ERecycleSingleton.version",
+    "src/collector.mjs~collectorsingleton.version",
+    "class/src/collector.mjs~CollectorSingleton.html#static-member-version",
+    "src/collector.mjs~CollectorSingleton.version",
     "member"
   ]
 ]

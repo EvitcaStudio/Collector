@@ -1,11 +1,11 @@
 /**
 * A recycle manager
-* @class ERecycleSingleton
-* @license ERecycle does not have a license at this time. For licensing contact the author
+* @class CollectorSingleton
+* @license Collector does not have a license at this time. For licensing contact the author
 * @author https://github.com/doubleactii
 * Copyright (c) 2023 Evitca Studio
 */
-class ERecycleSingleton {
+class CollectorSingleton {
 	/**
 	 * The version of the this library
 	 */
@@ -32,7 +32,7 @@ class ERecycleSingleton {
 		if (typeof(pLimit) === 'number') {
 			this.collectionLimit = Math.round(pLimit);
 			if (this.collectionLimit > this.WARNING_LIMIT) {
-				console.warn('ERecycle: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
+				console.warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
 			}
 		}
 	}
@@ -41,28 +41,28 @@ class ERecycleSingleton {
 		const arrayCollected = Array.isArray(pCollected);
 		// If there was nothing passed to be collected
 		if (!pCollected) {
-			console.error('ERecycle: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');
+			console.error('Collector: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');
 			return;
 		}
 		// If you are passing a empty object it will not be collected
 		if (typeof(pCollected) === 'object' && !arrayCollected && !Object.keys(pCollected).length) {
-			console.error('ERecycle: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');
+			console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');
 			return;
 		}
 		// If you are passing an object that is not a Diob or a Object, it will not be accepted. Vylocity types all have the type variable
 		if (!pCollected.type && !arrayCollected) {
-			console.error('ERecycle: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');
+			console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');
 			return;
 		}
 
 		if (Array.isArray((pCollection))) {
 			if (pCollection.includes(pCollected)) {
-				if (this.debugging) console.error('ERecycle: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
+				if (this.debugging) console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
 				return;
 			}
 			if (arrayCollected) {
 				if (!pCollected.length) {
-					console.error('ERecycle: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
+					console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
 					return;
 				}
 			}
@@ -72,7 +72,7 @@ class ERecycleSingleton {
 				if (pCollection.length >= this.collectionLimit) {
 					for (let i = pCollected.length - 1; i >= 0; i--) {
 						const instance = pCollected[i];
-						if (instance instanceof ERecycleSingleton.DiobConstructor) {
+						if (instance instanceof CollectorSingleton.DiobConstructor) {
 							this.cleanInstance(instance);
 							VYLO.delDiob(instance);
 						} else {
@@ -86,7 +86,7 @@ class ERecycleSingleton {
 					const remainder = pCollected.length - (this.collectionLimit - pCollection.length);
 					for (let c = remainder; c > 0; c--) {
 						const instance = pCollected[c];
-						if (instance instanceof ERecycleSingleton.DiobConstructor) {
+						if (instance instanceof CollectorSingleton.DiobConstructor) {
 							pCollected.splice(c, 1);
 							this.cleanInstance(instance);
 							VYLO.delDiob(instance);
@@ -108,7 +108,7 @@ class ERecycleSingleton {
 			} else {
 				// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.
 				if (pCollection.length >= this.collectionLimit) {
-					if (pCollected instanceof ERecycleSingleton.DiobConstructor) {
+					if (pCollected instanceof CollectorSingleton.DiobConstructor) {
 						this.cleanInstance(pCollected);
 						VYLO.delDiob(pCollected);
 					} else {
@@ -123,7 +123,7 @@ class ERecycleSingleton {
 				return;
 			}
 		} else {
-			console.error('ERecycle: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
+			console.error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
 		}
 	}
 
@@ -153,7 +153,7 @@ class ERecycleSingleton {
 						// Add it to the array that you will be getting from this collection
 						reuseArray.push(instanceInCollection);
 						// Label that this instance is no longer considered to be collection
-						instanceInCollection.ERecycleCollected = false;
+						instanceInCollection.collectorCollected = false;
 						// If this instance has a `onDumped` function defined call it.
 						if (typeof(instanceInCollection.onDumped) === 'function') instanceInCollection.onDumped(...pRest);
 						added++;
@@ -180,7 +180,7 @@ class ERecycleSingleton {
 
 	cleanInstance(pDiob) {
 		if (pDiob) {
-			if (pDiob instanceof ERecycleSingleton.DiobConstructor) {
+			if (pDiob instanceof CollectorSingleton.DiobConstructor) {
 				const isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VYLO.Type.getInheritances(pDiob.type).includes('Interface'));
 				if (pDiob.color) {
 					if (typeof(pDiob.color) === 'object' && pDiob.color.constructor === Object) {
@@ -219,7 +219,7 @@ class ERecycleSingleton {
 				for (const o of pDiob.getOverlays()) pDiob.removeOverlay(o.type);
 				for (const fN of pDiob.getFilters()) pDiob.removeFilter(fN);
 			}
-			pDiob.ERecycleCollected = true;
+			pDiob.collectorCollected = true;
 			pDiob.inTicker = null;
 			if (typeof(pDiob.clean) === 'function') pDiob.clean();
 		}
@@ -229,4 +229,4 @@ class ERecycleSingleton {
 		this.debugging = !this.debugging;
 	}
 }
-export const ERecycle = new ERecycleSingleton();
+export const Collector = new CollectorSingleton();

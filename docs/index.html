@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl">
-  <title data-ice="title">Home | ERecycle</title>
+  <title data-ice="title">Home | Collector</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="A recycle manager."><meta property="og:type" content="website"><meta property="og:url" content="https://github.com/EvitcaStudio/ERecycle#readme"><meta property="og:site_name" content="ERecycle"><meta property="og:title" content="ERecycle"><meta property="og:image" content="./evitcastudio_round_branding.png"><meta property="og:description" content="A recycle manager."><meta property="og:author" content="https://github.com/doubleactii"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="ERecycle"><meta property="twitter:description" content="A recycle manager."><meta property="twitter:image" content="./evitcastudio_round_branding.png"></head>
+<meta name="description" content="A recycle manager."><meta property="og:type" content="website"><meta property="og:url" content="https://github.com/EvitcaStudio/Collector#readme"><meta property="og:site_name" content="Collector"><meta property="og:title" content="Collector"><meta property="og:image" content="./evitcastudio_round_branding.png"><meta property="og:description" content="A recycle manager."><meta property="og:author" content="https://github.com/doubleactii"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Collector"><meta property="twitter:description" content="A recycle manager."><meta property="twitter:image" content="./evitcastudio_round_branding.png"></head>
 <body class="layout-container" data-ice="rootContainer">
 
 <header>
@@ -24,43 +24,36 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/EvitcaStudio/ERecycle"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/EvitcaStudio/Collector"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div>
   <ul>
     
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/erecycle.mjs~ERecycleSingleton.html">ERecycleSingleton</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-ERecycle">ERecycle</a></span></span></li>
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/collector.mjs~CollectorSingleton.html">CollectorSingleton</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collector">Collector</a></span></span></li>
 </ul>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="erecycle">ERecycle</h1><p>This plugin gives you an easy and beneficial way to reuse instances inside of the <a href="https://vylocity.com">Vylocity</a> game engine, as well as slow down the garbage collector.</p>
-<h2 id="supports-the-following-plugin--39-s-internal-methods-automatically">Supports the following plugin&apos;s internal methods automatically</h2><ul>
-<li><strong>aParticleGenerator</strong>  </li>
-<li><strong>aBlip</strong>  <blockquote>
-<p><strong>Note</strong><br>This simply means, instances are recycled automatically inside of the aforementioned plugins.  </p>
-</blockquote>
-</li>
-</ul>
-<h2 id="implementation">Implementation</h2><h3 id="-code-client-side--code-"><code>CLIENT-SIDE</code></h3><h4 id="-include-script-erecycle-min-js">#INCLUDE SCRIPT erecycle.min.js</h4><h3 id="-code-server-side--code-"><code>SERVER-SIDE</code></h3><h4 id="-include-serscript-erecycle-min-js">#INCLUDE SERSCRIPT erecycle.min.js</h4><h2 id="how-to-reference">How to reference</h2><h3 id="-code-javascript--code-"><code>Javascript</code></h3><p>ERecycle  </p>
-<h3 id="-code-vyscript--code-"><code>VyScript</code></h3><p>ERecycle  </p>
-<h2 id="api">API</h2><h3 id="erecycle-toggledebug--">ERecycle.toggleDebug()</h3><ul>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="collector">Collector</h1><p>This plugin gives you an easy and beneficial way to reuse instances inside of the <a href="https://vylocity.com">Vylocity</a> game engine, as well as slow down the garbage collector.</p>
+<h2 id="implementation">Implementation</h2><h3 id="-code-client-side--code-"><code>CLIENT-SIDE</code></h3><h4 id="-include-script-collector-min-js">#INCLUDE SCRIPT collector.min.js</h4><h3 id="-code-server-side--code-"><code>SERVER-SIDE</code></h3><h4 id="-include-serscript-collector-min-js">#INCLUDE SERSCRIPT collector.min.js</h4><h2 id="how-to-reference">How to reference</h2><h3 id="-code-javascript--code-"><code>Javascript</code></h3><p>Collector  </p>
+<h3 id="-code-vyscript--code-"><code>VyScript</code></h3><p>Collector  </p>
+<h2 id="api">API</h2><h3 id="collector-toggledebug--">Collector.toggleDebug()</h3><ul>
 <li><code>desc</code>: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.</li>
 </ul>
-<h3 id="erecycle-setmaxlimit-plimit-">ERecycle.setMaxLimit(pLimit)</h3><ul>
+<h3 id="collector-setmaxlimit-plimit-">Collector.setMaxLimit(pLimit)</h3><ul>
 <li><code>pLimit</code>: The new max limit on collections. </li>
 <li><code>desc</code>: Sets a limit on how much each collection array can recycle before deleting the access. The max is <code>20</code> by default. <blockquote>
 <p><strong>Warning</strong><br>(DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)  </p>
 </blockquote>
 </li>
 </ul>
-<h3 id="erecycle-collect-pcollected--pcollection-">ERecycle.collect(pCollected, pCollection)</h3><ul>
+<h3 id="collector-collect-pcollected--pcollection-">Collector.collect(pCollected, pCollection)</h3><ul>
 <li><code>pCollected</code>: The instance|array to collect into the collection array pCollection.</li>
 <li><code>pCollection</code>: The collection array this instance is going to. If the collection&apos;s length is <code>&gt;=</code> then the set max limit then pCollected will be deleted.</li>
 <li><code>desc</code>: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.</li>
 </ul>
-<h3 id="erecycle-isincollection-ptype--pnum--pcollection---parg---parg-------parg----">ERecycle.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])</h3><ul>
+<h3 id="collector-isincollection-ptype--pnum--pcollection---parg---parg-------parg----">Collector.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])</h3><ul>
 <li><code>pType</code>: The type of instance you want to get</li>
 <li><code>pNum</code>: The amount of pType(s) you want to get out of this collection</li>
 <li><code>pCollection</code>: The collection array to check inside of</li>
@@ -81,7 +74,7 @@
 </li>
 </ul>
 <h3 id="diob-object-ondumped----pparam---code-event--code-">Diob|Object.onDumped(...pParam) <code>event</code></h3><ul>
-<li><code>pParam</code>: The argument(s) that were passed inside of <code>ERecycle.isInCollection</code>.</li>
+<li><code>pParam</code>: The argument(s) that were passed inside of <code>Collector.isInCollection</code>.</li>
 <li><code>desc</code>: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin&apos;s equivalent of <code>Object.onNew</code></li>
 </ul>
 <h3 id="diob-object-oncollected----code-event--code-">Diob|Object.onCollected() <code>event</code></h3><ul>
@@ -92,23 +85,23 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance </code>
+      const toyForParty = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance </code>
 </code></pre>
 <h4 id="get-an-array-of-instances">Get an array of instances</h4><pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
 Diob
    Toy
 World
    onNew()
-      const toysForParty = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]</code>
+      const toysForParty = Collector.isInCollection(&apos;Diob/Toy&apos;, 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]</code>
 </code></pre>
 <h4 id="recycle-an-instance">Recycle an instance</h4><pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
 Diob
    Toy
 World
    onNew()
-      const toyForParty = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
+      const toyForParty = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
       // a few moments later
-      ERecycle.collect(toyForParty, toyBin)
+      Collector.collect(toyForParty, toyBin)
       // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!</code>
 </code></pre>
 <h4 id="how-to-use--code-instance-ondumped--code-">How to use <code>instance.onDumped</code></h4><p>Any time an instance is removed from a collection array it will call <code>instance.onDumped()</code> if it is a defined function.  </p>
@@ -121,15 +114,15 @@ Diob
          World.log(&apos;I was removed from toyBin so you can use me again!&apos;)
 World
    onNew()
-      // At this point in time toyBin has no toys in it so ERecycle creates the instance for you
-      const toyForParty = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
+      // At this point in time toyBin has no toys in it so Collector creates the instance for you
+      const toyForParty = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
       // We have just put the toy into the toybin
-      ERecycle.collect(toyForParty, toyBin)
+      Collector.collect(toyForParty, toyBin)
       // A few moments later we decide we want to get that toy back out
       // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin
-      const toy = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance</code>
+      const toy = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance</code>
 </code></pre>
-<h4 id="how-to-use--code-instance-ondumped--code--with-parameters">How to use <code>instance.onDumped</code> with parameters</h4><p>If your collection array starts off empty you must handle the condition of ERecycle calling <code>new Diob</code> and in return the event function <code>instance.onNew</code> being called!  </p>
+<h4 id="how-to-use--code-instance-ondumped--code--with-parameters">How to use <code>instance.onDumped</code> with parameters</h4><p>If your collection array starts off empty you must handle the condition of Collector calling <code>new Diob</code> and in return the event function <code>instance.onNew</code> being called!  </p>
 <pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
 Diob
    Toy
@@ -139,7 +132,7 @@ Diob
          this.name = pName // &apos;toyBall&apos;
 World
    onNew()
-      const toyBall = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
+      const toyBall = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
 </code></pre>
 <h4 id="using--code-instance-ondumped--code--like-a-pro">Using <code>instance.onDumped</code> like a pro</h4><p>Since <code>instance.onNew</code> and <code>instance.onDumped</code> are virutally the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don&apos;t have to duplicate code. In this case <code>setup</code> is the handler function.  </p>
 <pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
@@ -153,7 +146,7 @@ Diob
          this.setup(pName)
 World
    onNew()
-      const toyBall = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
+      const toyBall = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
 </code></pre>
 <h4 id="using--code-instance-oncollected--code-">Using <code>instance.onCollected</code></h4><p>Any time a diob is collected, ERecyle will call <code>instance.onCollected</code> if it is a defined function.  </p>
 <pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
@@ -163,8 +156,8 @@ Diob
          World.log(&apos;I have been collected&apos;)
 World
    onNew()
-      const toyBall = ERecycle.isInCollection(&apos;Diob/Toy&apos;, 1, toyBall) // DiobToyInstance
-      ERecycle.collect(toyBall, toyBin)</code>
+      const toyBall = Collector.isInCollection(&apos;Diob/Toy&apos;, 1, toyBall) // DiobToyInstance
+      Collector.collect(toyBall, toyBin)</code>
 </code></pre>
 </div>
 </div>
