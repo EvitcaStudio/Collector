@@ -324,10 +324,22 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/collector.mjs~collectorsingleton#constructor",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-constructor-constructor",
+    "src/collector.mjs~CollectorSingleton#constructor",
+    "method"
+  ],
+  [
     "src/collector.mjs~collectorsingleton#isincollection",
     "class/src/collector.mjs~CollectorSingleton.html#instance-method-isInCollection",
     "src/collector.mjs~CollectorSingleton#isInCollection",
     "method"
+  ],
+  [
+    "src/collector.mjs~collectorsingleton#logger",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-logger",
+    "src/collector.mjs~CollectorSingleton#logger",
+    "member"
   ],
   [
     "src/collector.mjs~collectorsingleton#setmaxlimit",

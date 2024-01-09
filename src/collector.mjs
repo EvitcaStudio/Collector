@@ -1,3 +1,5 @@
+import { Logger } from './vendor/logger.min.mjs';
+
 /**
 * A recycle manager
 * @class CollectorSingleton
@@ -33,6 +35,14 @@ class CollectorSingleton {
 	 * @type {Array}
 	 */
 	basicCollection = [];
+	constructor() {
+        /** The logger module this module uses to log errors / logs.
+         * @private
+         * @type {Object}
+         */
+        this.logger = new Logger();
+        this.logger.registerType('Collector-Module', '#ff6600');
+	}
 	/**
 	 * Sets the max collection limit of this module.
 	 * @param {number} pLimit - The max limit of instances a collection can hold.
@@ -41,7 +51,7 @@ class CollectorSingleton {
 		if (typeof(pLimit) === 'number') {
 			this.collectionLimit = Math.round(pLimit);
 			if (this.collectionLimit > Collector.WARNING_LIMIT) {
-				console.warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
+				this.logger.prefix('Collector-Module').warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
 			}
 		}
 	}
@@ -54,28 +64,28 @@ class CollectorSingleton {
 		const arrayCollected = Array.isArray(pCollected);
 		// If there was nothing passed to be collected
 		if (!pCollected) {
-			console.error('Collector: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');
+			this.logger.prefix('Collector-Module').error('Collector: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');
 			return;
 		}
 		// If you are passing a empty object it will not be collected
 		if (typeof(pCollected) === 'object' && !arrayCollected && !Object.keys(pCollected).length) {
-			console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');
+			this.logger.prefix('Collector-Module').error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');
 			return;
 		}
 		// If you are passing an object that is not a Diob or a Object, it will not be accepted. Vylocity types all have the type variable
 		if (!pCollected.type && !arrayCollected) {
-			console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');
+			this.logger.prefix('Collector-Module').error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');
 			return;
 		}
 
 		if (Array.isArray((pCollection))) {
 			if (pCollection.includes(pCollected)) {
-				console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
+				this.logger.prefix('Collector-Module').error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
 				return;
 			}
 			if (arrayCollected) {
 				if (!pCollected.length) {
-					console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
+					this.logger.prefix('Collector-Module').error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');
 					return;
 				}
 			}
@@ -136,7 +146,7 @@ class CollectorSingleton {
 				return;
 			}
 		} else {
-			console.error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
+			this.logger.prefix('Collector-Module').error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
 		}
 	}
 	/**
