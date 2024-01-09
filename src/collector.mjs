@@ -3,13 +3,12 @@
 * @class CollectorSingleton
 * @license Collector does not have a license at this time. For licensing contact the author
 * @author https://github.com/doubleactii
-* Copyright (c) 2023 Evitca Studio
 */
 class CollectorSingleton {
 	/**
-	 * The version of the this library
+	 * The version of the module.
 	 */
-	static version = '1.0.0';
+	version = "VERSION_REPLACE_ME";
 	/**
 	 * The constructor of the Diob class
 	 */
@@ -19,24 +18,38 @@ class CollectorSingleton {
 		VYLO.delDiob(protoDiob);
 		return DiobConstructor;
 	})();
-
-	constructor() {
-		// Debugging is whether this library is in debug mode. Extra warnings will be thrown in this mode to help explain any issues that may arise.
-		this.debugging = false;
-		this.collectionLimit = 20;
-		this.WARNING_LIMIT = 200;
-		this.basicCollection = [];
-	}
-
+	/**
+	 * Collection limit on arrays
+	 * @type {number}
+	 */
+	collectionLimit = 20;
+	/**
+	 * Warning limit
+	 * @type {number}
+	 */
+	static WARNING_LIMIT = 200;
+	/**
+	 * A default collection to use
+	 * @type {Array}
+	 */
+	basicCollection = [];
+	/**
+	 * Sets the max collection limit of this module.
+	 * @param {number} pLimit - The max limit of instances a collection can hold.
+	 */
 	setMaxLimit(pLimit) {
 		if (typeof(pLimit) === 'number') {
 			this.collectionLimit = Math.round(pLimit);
-			if (this.collectionLimit > this.WARNING_LIMIT) {
+			if (this.collectionLimit > Collector.WARNING_LIMIT) {
 				console.warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
 			}
 		}
 	}
-
+	/**
+	 * Collects a instance into a collection.
+	 * @param {Object} pCollected - The instance to collect.
+	 * @param {Array} pCollection - The collection array to collect the instance to.
+	 */
 	collect(pCollected, pCollection) {
 		const arrayCollected = Array.isArray(pCollected);
 		// If there was nothing passed to be collected
@@ -57,7 +70,7 @@ class CollectorSingleton {
 
 		if (Array.isArray((pCollection))) {
 			if (pCollection.includes(pCollected)) {
-				if (this.debugging) console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
+				console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');
 				return;
 			}
 			if (arrayCollected) {
@@ -126,7 +139,14 @@ class CollectorSingleton {
 			console.error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');
 		}
 	}
-
+	/**
+	 * Gets diob instance(s) from the named ocllection and returns them. If no instances exist in the collection, a new one is created as a last resort.
+	 * @param {string} pType - The diob type to find in the collection.
+	 * @param {number} pNum - How many of the diob instances to get from the collection.
+	 * @param {Array} pCollection - The collection to retrieve these instances from.
+	 * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
+	 * @returns {Object} The diob instance that was 
+	 */
 	isInCollection(pType='Diob', pNum=1, pCollection=[], ...pRest) {
 		const reuseArray = [];
 		let added = 0;
@@ -177,7 +197,11 @@ class CollectorSingleton {
 			return reuseArray;
 		}
 	}
-
+	/**
+	 * Cleans the diob instance so it can be reused from a fresh state
+	 * @private
+	 * @param {Object} pDiob - The diob instance to clean.
+	 */
 	cleanInstance(pDiob) {
 		if (pDiob) {
 			if (pDiob instanceof CollectorSingleton.DiobConstructor) {
@@ -223,10 +247,6 @@ class CollectorSingleton {
 			pDiob.inTicker = null;
 			if (typeof(pDiob.clean) === 'function') pDiob.clean();
 		}
-	}
-
-	toggleDebug() {
-		this.debugging = !this.debugging;
 	}
 }
 export const Collector = new CollectorSingleton();

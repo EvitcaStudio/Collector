@@ -567,9 +567,9 @@
     "__docId__": 48,
     "kind": "file",
     "name": "src/collector.mjs",
-    "content": "/**\r\n* A recycle manager\r\n* @class CollectorSingleton\r\n* @license Collector does not have a license at this time. For licensing contact the author\r\n* @author https://github.com/doubleactii\r\n* Copyright (c) 2023 Evitca Studio\r\n*/\r\nclass CollectorSingleton {\r\n\t/**\r\n\t * The version of the this library\r\n\t */\r\n\tstatic version = '1.0.0';\r\n\t/**\r\n\t * The constructor of the Diob class\r\n\t */\r\n\tstatic DiobConstructor = (() => {\r\n\t\tconst protoDiob = VYLO.newDiob();\r\n\t\tconst DiobConstructor = protoDiob.__proto__.constructor;\r\n\t\tVYLO.delDiob(protoDiob);\r\n\t\treturn DiobConstructor;\r\n\t})();\r\n\r\n\tconstructor() {\r\n\t\t// Debugging is whether this library is in debug mode. Extra warnings will be thrown in this mode to help explain any issues that may arise.\r\n\t\tthis.debugging = false;\r\n\t\tthis.collectionLimit = 20;\r\n\t\tthis.WARNING_LIMIT = 200;\r\n\t\tthis.basicCollection = [];\r\n\t}\r\n\r\n\tsetMaxLimit(pLimit) {\r\n\t\tif (typeof(pLimit) === 'number') {\r\n\t\t\tthis.collectionLimit = Math.round(pLimit);\r\n\t\t\tif (this.collectionLimit > this.WARNING_LIMIT) {\r\n\t\t\t\tconsole.warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tcollect(pCollected, pCollection) {\r\n\t\tconst arrayCollected = Array.isArray(pCollected);\r\n\t\t// If there was nothing passed to be collected\r\n\t\tif (!pCollected) {\r\n\t\t\tconsole.error('Collector: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');\r\n\t\t\treturn;\r\n\t\t}\r\n\t\t// If you are passing a empty object it will not be collected\r\n\t\tif (typeof(pCollected) === 'object' && !arrayCollected && !Object.keys(pCollected).length) {\r\n\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');\r\n\t\t\treturn;\r\n\t\t}\r\n\t\t// If you are passing an object that is not a Diob or a Object, it will not be accepted. Vylocity types all have the type variable\r\n\t\tif (!pCollected.type && !arrayCollected) {\r\n\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tif (Array.isArray((pCollection))) {\r\n\t\t\tif (pCollection.includes(pCollected)) {\r\n\t\t\t\tif (this.debugging) console.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tif (arrayCollected) {\r\n\t\t\t\tif (!pCollected.length) {\r\n\t\t\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tif (arrayCollected) {\r\n\t\t\t\t// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.\r\n\t\t\t\tif (pCollection.length >= this.collectionLimit) {\r\n\t\t\t\t\tfor (let i = pCollected.length - 1; i >= 0; i--) {\r\n\t\t\t\t\t\tconst instance = pCollected[i];\r\n\t\t\t\t\t\tif (instance instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delDiob(instance);\r\n\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delObject(instance);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn;\r\n\t\t\t\t// If this collectedArray has more instances than the collection can handle, the access is deleted\r\n\t\t\t\t} else if (pCollected.length + pCollection.length > this.collectionLimit) {\r\n\t\t\t\t\tconst remainder = pCollected.length - (this.collectionLimit - pCollection.length);\r\n\t\t\t\t\tfor (let c = remainder; c > 0; c--) {\r\n\t\t\t\t\t\tconst instance = pCollected[c];\r\n\t\t\t\t\t\tif (instance instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\t\tpCollected.splice(c, 1);\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delDiob(instance);\r\n\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\tpCollected.splice(c, 1);\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delObject(instance);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\t// The remaining instances that are in the collectedArray is now cleaned and processed and added to the collection\r\n\t\t\t\tfor (let k = pCollected.length - 1; k >= 0; k--) {\r\n\t\t\t\t\tconst instance = pCollected[k];\r\n\t\t\t\t\tif (typeof(instance.onCollected) === 'function') instance.onCollected();\r\n\t\t\t\t\tif (!pCollection.includes(instance)) pCollection.push(instance);\r\n\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t}\r\n\t\t\t\treturn;\r\n\t\t\t} else {\r\n\t\t\t\t// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.\r\n\t\t\t\tif (pCollection.length >= this.collectionLimit) {\r\n\t\t\t\t\tif (pCollected instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\t\t\tVYLO.delDiob(pCollected);\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\t\t\tVYLO.delObject(pCollected);\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t\tif (typeof(pCollected.onCollected) === 'function') pCollected.onCollected();\r\n\t\t\t\tif (!pCollection.includes(pCollected)) pCollection.push(pCollected);\r\n\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t} else {\r\n\t\t\tconsole.error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');\r\n\t\t}\r\n\t}\r\n\r\n\tisInCollection(pType='Diob', pNum=1, pCollection=[], ...pRest) {\r\n\t\tconst reuseArray = [];\r\n\t\tlet added = 0;\r\n\t\tlet quantity = pNum;\r\n\t\t// Objects do not have a baseType variable\r\n\t\tlet isObject = !VYLO.Type.getVariable(pType, 'baseType');\r\n\t\tif (!pCollection.length) {\r\n\t\t\tfor (let i = 0; i < pNum; i++) {\r\n\t\t\t\tif (isObject) {\r\n\t\t\t\t\treuseArray.push(VYLO.newObject(pType, ...pRest));\r\n\t\t\t\t} else {\r\n\t\t\t\t\treuseArray.push(VYLO.newDiob(pType, ...pRest));\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\tif (reuseArray.length === 1) return reuseArray.pop();\r\n\t\t\treturn reuseArray;\r\n\t\t} else {\r\n\t\t\tfor (let j = pCollection.length - 1; j >= 0; j--) {\r\n\t\t\t\tif (quantity) {\r\n\t\t\t\t\tlet instanceInCollection = pCollection[j];\r\n\t\t\t\t\tif (instanceInCollection.type === pType) {\r\n\t\t\t\t\t\t// Remove it from the collection\r\n\t\t\t\t\t\tpCollection.splice(j, 1);\r\n\t\t\t\t\t\t// Add it to the array that you will be getting from this collection\r\n\t\t\t\t\t\treuseArray.push(instanceInCollection);\r\n\t\t\t\t\t\t// Label that this instance is no longer considered to be collection\r\n\t\t\t\t\t\tinstanceInCollection.collectorCollected = false;\r\n\t\t\t\t\t\t// If this instance has a `onDumped` function defined call it.\r\n\t\t\t\t\t\tif (typeof(instanceInCollection.onDumped) === 'function') instanceInCollection.onDumped(...pRest);\r\n\t\t\t\t\t\tadded++;\r\n\t\t\t\t\t\tquantity--;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\t// If the amount of instances we were supposed to get is greater than the instances we have gotten from the array, we need to generate more.\r\n\t\t\tif (pNum > added) {\r\n\t\t\t\tconst missingQuantity = pNum - added;\r\n\t\t\t\tfor (let x = 0; x < missingQuantity; x++) {\r\n\t\t\t\t\tif (isObject) {\r\n\t\t\t\t\t\treuseArray.push(VYLO.newObject(pType, ...pRest));\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\treuseArray.push(VYLO.newDiob(pType, ...pRest));\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\t\t\r\n\t\t\tif (reuseArray.length === 1) return reuseArray.pop();\r\n\t\t\treturn reuseArray;\r\n\t\t}\r\n\t}\r\n\r\n\tcleanInstance(pDiob) {\r\n\t\tif (pDiob) {\r\n\t\t\tif (pDiob instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\tconst isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VYLO.Type.getInheritances(pDiob.type).includes('Interface'));\r\n\t\t\t\tif (pDiob.color) {\r\n\t\t\t\t\tif (typeof(pDiob.color) === 'object' && pDiob.color.constructor === Object) {\r\n\t\t\t\t\t\tpDiob.color.tint = 0xFFFFFF;\r\n\t\t\t\t\t\tpDiob.color = pDiob.color;\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\tpDiob.color = null;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tif (typeof(pDiob.scale) === 'object') {\r\n\t\t\t\t\tpDiob.scale.x = pDiob.scale.y = 1;\r\n\t\t\t\t\tpDiob.scale = pDiob.scale;\r\n\t\t\t\t} else {\r\n\t\t\t\t\tpDiob.scale = 1;\r\n\t\t\t\t}\r\n\t\t\t\tif (isInterface) {\r\n\t\t\t\t\tpDiob.hide();\r\n\t\t\t\t\tif (VYLO.World.getCodeType() !== 'server') {\r\n\t\t\t\t\t\tVYLO.Client.removeInterfaceElement(pDiob.getInterfaceName(), pDiob, true);\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tpDiob.playAnimation();\r\n\t\t\t\tpDiob.setTransition();\r\n\t\t\t\tpDiob.angle = 0;\r\n\t\t\t\tpDiob.alpha = 1;\r\n\t\t\t\tpDiob.xPos = 0;\r\n\t\t\t\tpDiob.yPos = 0;\r\n\t\t\t\tif (!isInterface) {\r\n\t\t\t\t\tpDiob.mapName = null;\r\n\t\t\t\t\t// PINGABLE\r\n\t\t\t\t\tpDiob.setLoc();\r\n\t\t\t\t}\r\n\t\t\t\tpDiob.text = '';\r\n\t\t\t\tpDiob.composite = '';\r\n\t\t\t\tif (pDiob.baseType === 'Movable') pDiob.move();\r\n\t\t\t\tfor (const o of pDiob.getOverlays()) pDiob.removeOverlay(o.type);\r\n\t\t\t\tfor (const fN of pDiob.getFilters()) pDiob.removeFilter(fN);\r\n\t\t\t}\r\n\t\t\tpDiob.collectorCollected = true;\r\n\t\t\tpDiob.inTicker = null;\r\n\t\t\tif (typeof(pDiob.clean) === 'function') pDiob.clean();\r\n\t\t}\r\n\t}\r\n\r\n\ttoggleDebug() {\r\n\t\tthis.debugging = !this.debugging;\r\n\t}\r\n}\r\nexport const Collector = new CollectorSingleton();\r\n",
+    "content": "/**\r\n* A recycle manager\r\n* @class CollectorSingleton\r\n* @license Collector does not have a license at this time. For licensing contact the author\r\n* @author https://github.com/doubleactii\r\n*/\r\nclass CollectorSingleton {\r\n\t/**\r\n\t * The version of the module.\r\n\t */\r\n\tversion = \"VERSION_REPLACE_ME\";\r\n\t/**\r\n\t * The constructor of the Diob class\r\n\t */\r\n\tstatic DiobConstructor = (() => {\r\n\t\tconst protoDiob = VYLO.newDiob();\r\n\t\tconst DiobConstructor = protoDiob.__proto__.constructor;\r\n\t\tVYLO.delDiob(protoDiob);\r\n\t\treturn DiobConstructor;\r\n\t})();\r\n\t/**\r\n\t * Collection limit on arrays\r\n\t * @type {number}\r\n\t */\r\n\tcollectionLimit = 20;\r\n\t/**\r\n\t * Warning limit\r\n\t * @type {number}\r\n\t */\r\n\tstatic WARNING_LIMIT = 200;\r\n\t/**\r\n\t * A default collection to use\r\n\t * @type {Array}\r\n\t */\r\n\tbasicCollection = [];\r\n\t/**\r\n\t * Sets the max collection limit of this module.\r\n\t * @param {number} pLimit - The max limit of instances a collection can hold.\r\n\t */\r\n\tsetMaxLimit(pLimit) {\r\n\t\tif (typeof(pLimit) === 'number') {\r\n\t\t\tthis.collectionLimit = Math.round(pLimit);\r\n\t\t\tif (this.collectionLimit > Collector.WARNING_LIMIT) {\r\n\t\t\t\tconsole.warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t/**\r\n\t * Collects a instance into a collection.\r\n\t * @param {Object} pCollected - The instance to collect.\r\n\t * @param {Array} pCollection - The collection array to collect the instance to.\r\n\t */\r\n\tcollect(pCollected, pCollection) {\r\n\t\tconst arrayCollected = Array.isArray(pCollected);\r\n\t\t// If there was nothing passed to be collected\r\n\t\tif (!pCollected) {\r\n\t\t\tconsole.error('Collector: There was nothing passed for the %cpCollected', 'font-weight: bold', 'parameter. Expecting a instance or an object.');\r\n\t\t\treturn;\r\n\t\t}\r\n\t\t// If you are passing a empty object it will not be collected\r\n\t\tif (typeof(pCollected) === 'object' && !arrayCollected && !Object.keys(pCollected).length) {\r\n\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is an empty object and will NOT be collected.');\r\n\t\t\treturn;\r\n\t\t}\r\n\t\t// If you are passing an object that is not a Diob or a Object, it will not be accepted. Vylocity types all have the type variable\r\n\t\tif (!pCollected.type && !arrayCollected) {\r\n\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', ' is not a valid object It has no type.');\r\n\t\t\treturn;\r\n\t\t}\r\n\r\n\t\tif (Array.isArray((pCollection))) {\r\n\t\t\tif (pCollection.includes(pCollected)) {\r\n\t\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'already belongs to the provided collection.');\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t\tif (arrayCollected) {\r\n\t\t\t\tif (!pCollected.length) {\r\n\t\t\t\t\tconsole.error('Collector: OOPS! %cpCollected', 'font-weight: bold', 'is an array. But it contains nothing to recycle.');\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t}\r\n\r\n\t\t\tif (arrayCollected) {\r\n\t\t\t\t// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.\r\n\t\t\t\tif (pCollection.length >= this.collectionLimit) {\r\n\t\t\t\t\tfor (let i = pCollected.length - 1; i >= 0; i--) {\r\n\t\t\t\t\t\tconst instance = pCollected[i];\r\n\t\t\t\t\t\tif (instance instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delDiob(instance);\r\n\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delObject(instance);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn;\r\n\t\t\t\t// If this collectedArray has more instances than the collection can handle, the access is deleted\r\n\t\t\t\t} else if (pCollected.length + pCollection.length > this.collectionLimit) {\r\n\t\t\t\t\tconst remainder = pCollected.length - (this.collectionLimit - pCollection.length);\r\n\t\t\t\t\tfor (let c = remainder; c > 0; c--) {\r\n\t\t\t\t\t\tconst instance = pCollected[c];\r\n\t\t\t\t\t\tif (instance instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\t\tpCollected.splice(c, 1);\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delDiob(instance);\r\n\t\t\t\t\t\t} else {\r\n\t\t\t\t\t\t\tpCollected.splice(c, 1);\r\n\t\t\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t\t\t\tVYLO.delObject(instance);\r\n\t\t\t\t\t\t}\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\t// The remaining instances that are in the collectedArray is now cleaned and processed and added to the collection\r\n\t\t\t\tfor (let k = pCollected.length - 1; k >= 0; k--) {\r\n\t\t\t\t\tconst instance = pCollected[k];\r\n\t\t\t\t\tif (typeof(instance.onCollected) === 'function') instance.onCollected();\r\n\t\t\t\t\tif (!pCollection.includes(instance)) pCollection.push(instance);\r\n\t\t\t\t\tthis.cleanInstance(instance);\r\n\t\t\t\t}\r\n\t\t\t\treturn;\r\n\t\t\t} else {\r\n\t\t\t\t// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.\r\n\t\t\t\tif (pCollection.length >= this.collectionLimit) {\r\n\t\t\t\t\tif (pCollected instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\t\t\tVYLO.delDiob(pCollected);\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\t\t\tVYLO.delObject(pCollected);\r\n\t\t\t\t\t}\r\n\t\t\t\t\treturn;\r\n\t\t\t\t}\r\n\t\t\t\tif (typeof(pCollected.onCollected) === 'function') pCollected.onCollected();\r\n\t\t\t\tif (!pCollection.includes(pCollected)) pCollection.push(pCollected);\r\n\t\t\t\tthis.cleanInstance(pCollected);\r\n\t\t\t\treturn;\r\n\t\t\t}\r\n\t\t} else {\r\n\t\t\tconsole.error('Collector: Invalid variable type passed for the %cpCollection', 'font-weight: bold', 'parameter. Expecting an array. Collect failed.');\r\n\t\t}\r\n\t}\r\n\t/**\r\n\t * Gets diob instance(s) from the named ocllection and returns them. If no instances exist in the collection, a new one is created as a last resort.\r\n\t * @param {string} pType - The diob type to find in the collection.\r\n\t * @param {number} pNum - How many of the diob instances to get from the collection.\r\n\t * @param {Array} pCollection - The collection to retrieve these instances from.\r\n\t * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event\r\n\t * @returns {Object} The diob instance that was \r\n\t */\r\n\tisInCollection(pType='Diob', pNum=1, pCollection=[], ...pRest) {\r\n\t\tconst reuseArray = [];\r\n\t\tlet added = 0;\r\n\t\tlet quantity = pNum;\r\n\t\t// Objects do not have a baseType variable\r\n\t\tlet isObject = !VYLO.Type.getVariable(pType, 'baseType');\r\n\t\tif (!pCollection.length) {\r\n\t\t\tfor (let i = 0; i < pNum; i++) {\r\n\t\t\t\tif (isObject) {\r\n\t\t\t\t\treuseArray.push(VYLO.newObject(pType, ...pRest));\r\n\t\t\t\t} else {\r\n\t\t\t\t\treuseArray.push(VYLO.newDiob(pType, ...pRest));\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\tif (reuseArray.length === 1) return reuseArray.pop();\r\n\t\t\treturn reuseArray;\r\n\t\t} else {\r\n\t\t\tfor (let j = pCollection.length - 1; j >= 0; j--) {\r\n\t\t\t\tif (quantity) {\r\n\t\t\t\t\tlet instanceInCollection = pCollection[j];\r\n\t\t\t\t\tif (instanceInCollection.type === pType) {\r\n\t\t\t\t\t\t// Remove it from the collection\r\n\t\t\t\t\t\tpCollection.splice(j, 1);\r\n\t\t\t\t\t\t// Add it to the array that you will be getting from this collection\r\n\t\t\t\t\t\treuseArray.push(instanceInCollection);\r\n\t\t\t\t\t\t// Label that this instance is no longer considered to be collection\r\n\t\t\t\t\t\tinstanceInCollection.collectorCollected = false;\r\n\t\t\t\t\t\t// If this instance has a `onDumped` function defined call it.\r\n\t\t\t\t\t\tif (typeof(instanceInCollection.onDumped) === 'function') instanceInCollection.onDumped(...pRest);\r\n\t\t\t\t\t\tadded++;\r\n\t\t\t\t\t\tquantity--;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\t// If the amount of instances we were supposed to get is greater than the instances we have gotten from the array, we need to generate more.\r\n\t\t\tif (pNum > added) {\r\n\t\t\t\tconst missingQuantity = pNum - added;\r\n\t\t\t\tfor (let x = 0; x < missingQuantity; x++) {\r\n\t\t\t\t\tif (isObject) {\r\n\t\t\t\t\t\treuseArray.push(VYLO.newObject(pType, ...pRest));\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\treuseArray.push(VYLO.newDiob(pType, ...pRest));\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t\t\t\r\n\t\t\tif (reuseArray.length === 1) return reuseArray.pop();\r\n\t\t\treturn reuseArray;\r\n\t\t}\r\n\t}\r\n\t/**\r\n\t * Cleans the diob instance so it can be reused from a fresh state\r\n\t * @private\r\n\t * @param {Object} pDiob - The diob instance to clean.\r\n\t */\r\n\tcleanInstance(pDiob) {\r\n\t\tif (pDiob) {\r\n\t\t\tif (pDiob instanceof CollectorSingleton.DiobConstructor) {\r\n\t\t\t\tconst isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VYLO.Type.getInheritances(pDiob.type).includes('Interface'));\r\n\t\t\t\tif (pDiob.color) {\r\n\t\t\t\t\tif (typeof(pDiob.color) === 'object' && pDiob.color.constructor === Object) {\r\n\t\t\t\t\t\tpDiob.color.tint = 0xFFFFFF;\r\n\t\t\t\t\t\tpDiob.color = pDiob.color;\r\n\t\t\t\t\t} else {\r\n\t\t\t\t\t\tpDiob.color = null;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tif (typeof(pDiob.scale) === 'object') {\r\n\t\t\t\t\tpDiob.scale.x = pDiob.scale.y = 1;\r\n\t\t\t\t\tpDiob.scale = pDiob.scale;\r\n\t\t\t\t} else {\r\n\t\t\t\t\tpDiob.scale = 1;\r\n\t\t\t\t}\r\n\t\t\t\tif (isInterface) {\r\n\t\t\t\t\tpDiob.hide();\r\n\t\t\t\t\tif (VYLO.World.getCodeType() !== 'server') {\r\n\t\t\t\t\t\tVYLO.Client.removeInterfaceElement(pDiob.getInterfaceName(), pDiob, true);\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t\tpDiob.playAnimation();\r\n\t\t\t\tpDiob.setTransition();\r\n\t\t\t\tpDiob.angle = 0;\r\n\t\t\t\tpDiob.alpha = 1;\r\n\t\t\t\tpDiob.xPos = 0;\r\n\t\t\t\tpDiob.yPos = 0;\r\n\t\t\t\tif (!isInterface) {\r\n\t\t\t\t\tpDiob.mapName = null;\r\n\t\t\t\t\t// PINGABLE\r\n\t\t\t\t\tpDiob.setLoc();\r\n\t\t\t\t}\r\n\t\t\t\tpDiob.text = '';\r\n\t\t\t\tpDiob.composite = '';\r\n\t\t\t\tif (pDiob.baseType === 'Movable') pDiob.move();\r\n\t\t\t\tfor (const o of pDiob.getOverlays()) pDiob.removeOverlay(o.type);\r\n\t\t\t\tfor (const fN of pDiob.getFilters()) pDiob.removeFilter(fN);\r\n\t\t\t}\r\n\t\t\tpDiob.collectorCollected = true;\r\n\t\t\tpDiob.inTicker = null;\r\n\t\t\tif (typeof(pDiob.clean) === 'function') pDiob.clean();\r\n\t\t}\r\n\t}\r\n}\r\nexport const Collector = new CollectorSingleton();\r\n",
     "static": true,
-    "longname": "C:/Users/jared/Documents/Github/ERecycle/src/collector.mjs",
+    "longname": "C:/Users/jared/Documents/Github/Collector/src/collector.mjs",
     "access": "public",
     "description": null,
     "lineNumber": 1
@@ -586,7 +586,7 @@
     "importPath": "collector/src/collector.mjs",
     "importStyle": "{Collector}",
     "description": null,
-    "lineNumber": 232,
+    "lineNumber": 252,
     "undocument": true,
     "type": {
       "types": [
@@ -606,7 +606,7 @@
     "importPath": "collector/src/collector.mjs",
     "importStyle": null,
     "description": "A recycle manager",
-    "lineNumber": 8,
+    "lineNumber": 7,
     "pseudoExport": true,
     "unknown": [
       {
@@ -619,7 +619,7 @@
       },
       {
         "tagName": "@author",
-        "tagValue": "https://github.com/doubleactii\nCopyright (c) 2023 Evitca Studio"
+        "tagValue": "https://github.com/doubleactii"
       }
     ],
     "interface": false
@@ -629,11 +629,11 @@
     "kind": "member",
     "name": "version",
     "memberof": "src/collector.mjs~CollectorSingleton",
-    "static": true,
-    "longname": "src/collector.mjs~CollectorSingleton.version",
+    "static": false,
+    "longname": "src/collector.mjs~CollectorSingleton#version",
     "access": "public",
-    "description": "The version of the this library",
-    "lineNumber": 12,
+    "description": "The version of the module.",
+    "lineNumber": 11,
     "type": {
       "types": [
         "*"
@@ -649,7 +649,7 @@
     "longname": "src/collector.mjs~CollectorSingleton.DiobConstructor",
     "access": "public",
     "description": "The constructor of the Diob class",
-    "lineNumber": 16,
+    "lineNumber": 15,
     "type": {
       "types": [
         "*"
@@ -658,88 +658,63 @@
   },
   {
     "__docId__": 53,
-    "kind": "constructor",
-    "name": "constructor",
-    "memberof": "src/collector.mjs~CollectorSingleton",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/collector.mjs~CollectorSingleton#constructor",
-    "access": "public",
-    "description": null,
-    "lineNumber": 23,
-    "undocument": true
-  },
-  {
-    "__docId__": 54,
-    "kind": "member",
-    "name": "debugging",
-    "memberof": "src/collector.mjs~CollectorSingleton",
-    "static": false,
-    "longname": "src/collector.mjs~CollectorSingleton#debugging",
-    "access": "public",
-    "description": null,
-    "lineNumber": 25,
-    "undocument": true,
-    "type": {
-      "types": [
-        "boolean"
-      ]
-    }
-  },
-  {
-    "__docId__": 55,
     "kind": "member",
     "name": "collectionLimit",
     "memberof": "src/collector.mjs~CollectorSingleton",
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#collectionLimit",
     "access": "public",
-    "description": null,
-    "lineNumber": 26,
-    "undocument": true,
+    "description": "Collection limit on arrays",
+    "lineNumber": 25,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 56,
+    "__docId__": 54,
     "kind": "member",
     "name": "WARNING_LIMIT",
     "memberof": "src/collector.mjs~CollectorSingleton",
-    "static": false,
-    "longname": "src/collector.mjs~CollectorSingleton#WARNING_LIMIT",
+    "static": true,
+    "longname": "src/collector.mjs~CollectorSingleton.WARNING_LIMIT",
     "access": "public",
-    "description": null,
-    "lineNumber": 27,
-    "undocument": true,
+    "description": "Warning limit",
+    "lineNumber": 30,
     "type": {
+      "nullable": null,
       "types": [
         "number"
-      ]
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 57,
+    "__docId__": 55,
     "kind": "member",
     "name": "basicCollection",
     "memberof": "src/collector.mjs~CollectorSingleton",
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#basicCollection",
     "access": "public",
-    "description": null,
-    "lineNumber": 28,
-    "undocument": true,
+    "description": "A default collection to use",
+    "lineNumber": 35,
     "type": {
+      "nullable": null,
       "types": [
-        "*[]"
-      ]
+        "Array"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
-    "__docId__": 58,
+    "__docId__": 56,
     "kind": "method",
     "name": "setMaxLimit",
     "memberof": "src/collector.mjs~CollectorSingleton",
@@ -748,21 +723,24 @@
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#setMaxLimit",
     "access": "public",
-    "description": null,
-    "lineNumber": 31,
-    "undocument": true,
+    "description": "Sets the max collection limit of this module.",
+    "lineNumber": 40,
     "params": [
       {
-        "name": "pLimit",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pLimit",
+        "description": "The max limit of instances a collection can hold."
       }
     ],
     "return": null
   },
   {
-    "__docId__": 60,
+    "__docId__": 58,
     "kind": "method",
     "name": "collect",
     "memberof": "src/collector.mjs~CollectorSingleton",
@@ -771,27 +749,34 @@
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#collect",
     "access": "public",
-    "description": null,
-    "lineNumber": 40,
-    "undocument": true,
+    "description": "Collects a instance into a collection.",
+    "lineNumber": 53,
     "params": [
       {
-        "name": "pCollected",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pCollected",
+        "description": "The instance to collect."
       },
       {
-        "name": "pCollection",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pCollection",
+        "description": "The collection array to collect the instance to."
       }
     ],
     "return": null
   },
   {
-    "__docId__": 61,
+    "__docId__": 59,
     "kind": "method",
     "name": "isInCollection",
     "memberof": "src/collector.mjs~CollectorSingleton",
@@ -800,53 +785,67 @@
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#isInCollection",
     "access": "public",
-    "description": null,
-    "lineNumber": 130,
-    "undocument": true,
+    "description": "Gets diob instance(s) from the named ocllection and returns them. If no instances exist in the collection, a new one is created as a last resort.",
+    "lineNumber": 150,
+    "unknown": [
+      {
+        "tagName": "@returns",
+        "tagValue": "{Object} The diob instance that was "
+      }
+    ],
     "params": [
       {
-        "name": "pType",
-        "optional": true,
+        "nullable": null,
         "types": [
           "string"
         ],
-        "defaultRaw": "Diob",
-        "defaultValue": "Diob"
+        "spread": false,
+        "optional": false,
+        "name": "pType",
+        "description": "The diob type to find in the collection."
       },
       {
-        "name": "pNum",
-        "optional": true,
+        "nullable": null,
         "types": [
           "number"
         ],
-        "defaultRaw": 1,
-        "defaultValue": "1"
+        "spread": false,
+        "optional": false,
+        "name": "pNum",
+        "description": "How many of the diob instances to get from the collection."
       },
       {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
         "name": "pCollection",
-        "optional": true,
-        "types": [
-          "*[]"
-        ],
-        "defaultRaw": [],
-        "defaultValue": "[]"
+        "description": "The collection to retrieve these instances from."
       },
       {
-        "name": "pRest",
+        "nullable": null,
         "types": [
-          "...*"
+          "...any"
         ],
-        "spread": true
+        "spread": true,
+        "optional": false,
+        "name": "pRest",
+        "description": "Remaining args to be passed into the new constructor of the diob or onDumped event"
       }
     ],
     "return": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Object"
+      ],
+      "spread": false,
+      "description": "The diob instance that was"
     }
   },
   {
-    "__docId__": 62,
+    "__docId__": 60,
     "kind": "method",
     "name": "cleanInstance",
     "memberof": "src/collector.mjs~CollectorSingleton",
@@ -854,48 +853,35 @@
     "async": false,
     "static": false,
     "longname": "src/collector.mjs~CollectorSingleton#cleanInstance",
-    "access": "public",
-    "description": null,
-    "lineNumber": 181,
-    "undocument": true,
+    "access": "private",
+    "description": "Cleans the diob instance so it can be reused from a fresh state",
+    "lineNumber": 205,
     "params": [
       {
-        "name": "pDiob",
+        "nullable": null,
         "types": [
-          "*"
-        ]
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "pDiob",
+        "description": "The diob instance to clean."
       }
     ],
     "return": null
   },
   {
-    "__docId__": 63,
-    "kind": "method",
-    "name": "toggleDebug",
-    "memberof": "src/collector.mjs~CollectorSingleton",
-    "generator": false,
-    "async": false,
-    "static": false,
-    "longname": "src/collector.mjs~CollectorSingleton#toggleDebug",
-    "access": "public",
-    "description": null,
-    "lineNumber": 228,
-    "undocument": true,
-    "params": [],
-    "return": null
-  },
-  {
     "kind": "index",
     "content": "# Collector\r\nThis plugin gives you an easy and beneficial way to reuse instances inside of the [Vylocity](https://vylocity.com) game engine, as well as slow down the garbage collector.\r\n\r\n\r\n## Implementation \r\n\r\n### `CLIENT-SIDE`  \r\n#### #INCLUDE SCRIPT collector.min.js  \r\n### `SERVER-SIDE` \r\n#### #INCLUDE SERSCRIPT collector.min.js  \r\n\r\n## How to reference  \r\n\r\n### `Javascript`  \r\nCollector  \r\n  \r\n### `VyScript`  \r\nCollector  \r\n\r\n## API  \r\n\r\n###  Collector.toggleDebug()\r\n   - `desc`: Turn on/off the debugging mode of this plugin, which throws additional logs/warnings. Should be turned off in production code.\r\n\r\n###  Collector.setMaxLimit(pLimit)\r\n   - `pLimit`: The new max limit on collections. \r\n   - `desc`: Sets a limit on how much each collection array can recycle before deleting the access. The max is `20` by default. \r\n> **Warning**  \r\n(DO NOT SET THIS TO A HIGH VALUE. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)  \r\n\r\n###  Collector.collect(pCollected, pCollection)\r\n  - `pCollected`: The instance|array to collect into the collection array pCollection.\r\n  - `pCollection`: The collection array this instance is going to. If the collection's length is `>=` then the set max limit then pCollected will be deleted.\r\n  - `desc`: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.\r\n\r\n###  Collector.isInCollection(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])\r\n  - `pType`: The type of instance you want to get\r\n  - `pNum`: The amount of pType(s) you want to get out of this collection\r\n  - `pCollection`: The collection array to check inside of\r\n  - `pArg`: Any argument(s) to pass to the `instance.onNew` or the `instance.onDumped` event function.\r\n  - `desc`: This is the plugin equivalent of `new Diob(pType)`. \r\n  - `returns`: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.\r\n\r\n###  Diob|Object.clean() `event`\r\n   - `desc`: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it's default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn't know about. Internal cleaning involves:\r\n      - `Removing color&text`\r\n      - `Removing overlays&filters`\r\n      - `Removing it from an interface if it is a interface element.`\r\n      - `Removing it from the ticker system`\r\n      - `Resetting animations&transitions`\r\n      - `Resetting angle&scale&composite&positionalData`\r\n      - `Cancels movement`\r\n\r\n###  Diob|Object.onDumped(...pParam) `event`\r\n   - `pParam`: The argument(s) that were passed inside of `Collector.isInCollection`.\r\n   - `desc`: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin's equivalent of `Object.onNew`\r\n\r\n###  Diob|Object.onCollected() `event`\r\n   - `desc`: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`\r\n\r\n##  Examples  \r\n####  Get an instance \r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\nWorld\r\n   onNew()\r\n      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance \r\n```\r\n\r\n#### Get an array of instances\r\n\r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\nWorld\r\n   onNew()\r\n      const toysForParty = Collector.isInCollection('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]\r\n```\r\n#### Recycle an instance  \r\n\r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\nWorld\r\n   onNew()\r\n      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance\r\n      // a few moments later\r\n      Collector.collect(toyForParty, toyBin)\r\n      // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!\r\n```\r\n\r\n#### How to use `instance.onDumped`  \r\nAny time an instance is removed from a collection array it will call `instance.onDumped()` if it is a defined function.  \r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\n      onNew()\r\n         World.log('toyBin was empty so i was created!')\r\n      function onDumped()\r\n         World.log('I was removed from toyBin so you can use me again!')\r\nWorld\r\n   onNew()\r\n      // At this point in time toyBin has no toys in it so Collector creates the instance for you\r\n      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance\r\n      // We have just put the toy into the toybin\r\n      Collector.collect(toyForParty, toyBin)\r\n      // A few moments later we decide we want to get that toy back out\r\n      // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin\r\n      const toy = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance\r\n```\r\n\r\n#### How to use `instance.onDumped` with parameters  \r\nIf your collection array starts off empty you must handle the condition of Collector calling `new Diob` and in return the event function `instance.onNew` being called!  \r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\n      onNew(pName)\r\n         this.name = pName // 'toyBall'\r\n      function onDumped(pName)\r\n         this.name = pName // 'toyBall'\r\nWorld\r\n   onNew()\r\n      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  \r\n```\r\n\r\n#### Using `instance.onDumped` like a pro  \r\nSince `instance.onNew` and `instance.onDumped` are virutally the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don't have to duplicate code. In this case `setup` is the handler function.  \r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\n      onNew(pName)\r\n         this.setup(pName)\r\n      function setup(pName)\r\n         this.name = pName // 'toyBall'\r\n      function onDumped(pName)\r\n         this.setup(pName)\r\nWorld\r\n   onNew()\r\n      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  \r\n```\r\n\r\n#### Using `instance.onCollected`  \r\nAny time a diob is collected, ERecyle will call `instance.onCollected` if it is a defined function.  \r\n```js\r\nconst toyBin = []\r\nDiob\r\n   Toy\r\n      function onCollected()\r\n         World.log('I have been collected')\r\nWorld\r\n   onNew()\r\n      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance\r\n      Collector.collect(toyBall, toyBin)\r\n```\r\n\r\n      \r\n",
-    "longname": "C:\\Users\\jared\\Documents\\Github\\ERecycle\\README.md",
+    "longname": "C:\\Users\\jared\\Documents\\Github\\Collector\\README.md",
     "name": "./README.md",
     "static": true,
     "access": "public"
   },
   {
     "kind": "packageJSON",
-    "content": "{\r\n  \"name\": \"collector\",\r\n  \"version\": \"1.0.0\",\r\n  \"description\": \"A recycle manager\",\r\n  \"main\": \"collector.mjs\",\r\n  \"scripts\": {\r\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\r\n    \"build-dist\": \"uglifyjs src/collector.mjs -m -c --comments -o dist/collector.min.mjs && esdoc -c esdoc.json\"\r\n  },\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"git+https://github.com/EvitcaStudio/Collector.git\"\r\n  },\r\n  \"author\": \"https://github.com/doubleactii\",\r\n  \"license\": \"MIT\",\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/EvitcaStudio/Collector/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/EvitcaStudio/Collector#readme\",\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"uglify-js\": \"^3.17.4\"\r\n  }\r\n}\r\n",
-    "longname": "C:\\Users\\jared\\Documents\\Github\\ERecycle\\package.json",
+    "content": "{\r\n  \"name\": \"collector\",\r\n  \"version\": \"1.0.0\",\r\n  \"description\": \"A recycle manager\",\r\n  \"main\": \"dist/collector.min.mjs\",\r\n  \"scripts\": {\r\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\",\r\n    \"build\": \"npx webpack && npm run build:minify && node add-version-script.js && node add-banner-script.js\",\r\n    \"build:minify\": \"uglifyjs dist/collector.min.mjs -m -c -o dist/collector.min.mjs\",\r\n    \"build:prod\": \"npx webpack --mode production && npm run build:minify && node add-version-script.js && node add-banner-script.js && npm run build:docs\",\r\n    \"build:docs\": \"esdoc -c esdoc.json\"\r\n  },\r\n  \"author\": \"https://github.com/doubleactii\",\r\n  \"license\": \"SEE LICENSE IN LICENSE.md\",\r\n  \"repository\": {\r\n    \"type\": \"git\",\r\n    \"url\": \"https://github.com/EvitcaStudio/Collector.git\"\r\n  },\r\n  \"bugs\": {\r\n    \"url\": \"https://github.com/EvitcaStudio/Collector/issues\"\r\n  },\r\n  \"homepage\": \"https://github.com/EvitcaStudio/Collector#readme\",\r\n  \"devDependencies\": {\r\n    \"esdoc\": \"^1.1.0\",\r\n    \"esdoc-ecmascript-proposal-plugin\": \"^1.0.0\",\r\n    \"esdoc-standard-plugin\": \"^1.0.0\",\r\n    \"uglify-js\": \"^3.17.4\",\r\n    \"webpack\": \"^5.89.0\",\r\n    \"webpack-cli\": \"^5.1.4\"\r\n  }\r\n}\r\n",
+    "longname": "C:\\Users\\jared\\Documents\\Github\\Collector\\package.json",
     "name": "package.json",
     "static": true,
     "access": "public"

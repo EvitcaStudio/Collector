@@ -2,17 +2,20 @@
   "name": "collector",
   "version": "1.0.0",
   "description": "A recycle manager",
-  "main": "collector.mjs",
+  "main": "dist/collector.min.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-dist": "uglifyjs src/collector.mjs -m -c --comments -o dist/collector.min.mjs && esdoc -c esdoc.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/EvitcaStudio/Collector.git"
+    "build": "npx webpack && npm run build:minify && node add-version-script.js && node add-banner-script.js",
+    "build:minify": "uglifyjs dist/collector.min.mjs -m -c -o dist/collector.min.mjs",
+    "build:prod": "npx webpack --mode production && npm run build:minify && node add-version-script.js && node add-banner-script.js && npm run build:docs",
+    "build:docs": "esdoc -c esdoc.json"
   },
   "author": "https://github.com/doubleactii",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EvitcaStudio/Collector.git"
+  },
   "bugs": {
     "url": "https://github.com/EvitcaStudio/Collector/issues"
   },
@@ -21,6 +24,8 @@
     "esdoc": "^1.1.0",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "esdoc-standard-plugin": "^1.0.0",
-    "uglify-js": "^3.17.4"
+    "uglify-js": "^3.17.4",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
   }
 }

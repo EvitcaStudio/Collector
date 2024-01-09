@@ -300,12 +300,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/collector.mjs~collectorsingleton#warning_limit",
-    "class/src/collector.mjs~CollectorSingleton.html#instance-member-WARNING_LIMIT",
-    "src/collector.mjs~CollectorSingleton#WARNING_LIMIT",
-    "member"
-  ],
-  [
     "src/collector.mjs~collectorsingleton#basiccollection",
     "class/src/collector.mjs~CollectorSingleton.html#instance-member-basicCollection",
     "src/collector.mjs~CollectorSingleton#basicCollection",
@@ -330,18 +324,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/collector.mjs~collectorsingleton#constructor",
-    "class/src/collector.mjs~CollectorSingleton.html#instance-constructor-constructor",
-    "src/collector.mjs~CollectorSingleton#constructor",
-    "method"
-  ],
-  [
-    "src/collector.mjs~collectorsingleton#debugging",
-    "class/src/collector.mjs~CollectorSingleton.html#instance-member-debugging",
-    "src/collector.mjs~CollectorSingleton#debugging",
-    "member"
-  ],
-  [
     "src/collector.mjs~collectorsingleton#isincollection",
     "class/src/collector.mjs~CollectorSingleton.html#instance-method-isInCollection",
     "src/collector.mjs~CollectorSingleton#isInCollection",
@@ -354,10 +336,10 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/collector.mjs~collectorsingleton#toggledebug",
-    "class/src/collector.mjs~CollectorSingleton.html#instance-method-toggleDebug",
-    "src/collector.mjs~CollectorSingleton#toggleDebug",
-    "method"
+    "src/collector.mjs~collectorsingleton#version",
+    "class/src/collector.mjs~CollectorSingleton.html#instance-member-version",
+    "src/collector.mjs~CollectorSingleton#version",
+    "member"
   ],
   [
     "src/collector.mjs~collectorsingleton.diobconstructor",
@@ -366,9 +348,9 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/collector.mjs~collectorsingleton.version",
-    "class/src/collector.mjs~CollectorSingleton.html#static-member-version",
-    "src/collector.mjs~CollectorSingleton.version",
+    "src/collector.mjs~collectorsingleton.warning_limit",
+    "class/src/collector.mjs~CollectorSingleton.html#static-member-WARNING_LIMIT",
+    "src/collector.mjs~CollectorSingleton.WARNING_LIMIT",
     "member"
   ]
 ]
