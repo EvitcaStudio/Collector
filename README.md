@@ -167,3 +167,6 @@ World
 ```
 
       
+### Global Dependency
+
+Collector relies on the `VYLO` variable being globally accessible.
