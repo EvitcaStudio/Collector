@@ -1,11 +1,5 @@
 import { Logger } from './vendor/logger.min.mjs';
 
-/**
-* A recycle manager
-* @class CollectorSingleton
-* @license Collector does not have a license at this time. For licensing contact the author
-* @author https://github.com/doubleactii
-*/
 class CollectorSingleton {
 	/**
 	 * The version of the module.
@@ -13,6 +7,7 @@ class CollectorSingleton {
 	version = "VERSION_REPLACE_ME";
 	/**
 	 * The constructor of the Diob class
+	 * @private
 	 */
 	static DiobConstructor = (() => {
 		const protoDiob = VYLO.newDiob();
@@ -21,20 +16,26 @@ class CollectorSingleton {
 		return DiobConstructor;
 	})();
 	/**
-	 * Collection limit on arrays
+	 * Collection limit on arrays.
+	 * @private
 	 * @type {number}
 	 */
 	collectionLimit = 20;
 	/**
-	 * Warning limit
+	 * Warning limit.
+	 * @private
 	 * @type {number}
 	 */
 	static WARNING_LIMIT = 200;
 	/**
-	 * A default collection to use
+	 * A default collection to use.
+	 * @private
 	 * @type {Array}
 	 */
 	basicCollection = [];
+	/**
+	 * @private
+	 */
 	constructor() {
         /** The logger module this module uses to log errors / logs.
          * @private

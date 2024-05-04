@@ -1,14 +1,14 @@
 window.esdocSearchIndex = [
   [
-    "collector/src/collector.mjs~collector",
+    "collector~collector",
     "variable/index.html#static-variable-Collector",
-    "<span>Collector</span> <span class=\"search-result-import-path\">collector/src/collector.mjs</span>",
+    "<span>Collector</span> <span class=\"search-result-import-path\">collector</span>",
     "variable"
   ],
   [
-    "collector/src/collector.mjs~collectorsingleton",
+    "collector~collectorsingleton",
     "class/src/collector.mjs~CollectorSingleton.html",
-    "<span>CollectorSingleton</span> <span class=\"search-result-import-path\">collector/src/collector.mjs</span>",
+    "<span>CollectorSingleton</span> <span class=\"search-result-import-path\">collector</span>",
     "class"
   ],
   [

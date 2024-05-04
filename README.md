@@ -1,21 +1,27 @@
 # Collector
 This plugin gives you an easy and beneficial way to reuse instances inside of the [Vylocity](https://vylocity.com) game engine, as well as slow down the garbage collector.
 
+## Installation
 
-## Implementation 
+### ES Module
 
-### `CLIENT-SIDE`  
-#### #INCLUDE SCRIPT collector.min.js  
-### `SERVER-SIDE` 
-#### #INCLUDE SERSCRIPT collector.min.js  
+```js
+import { Collector } from './collector.mjs';
+```
 
-## How to reference  
+### IIFE (Immediately Invoked Function Expression)
 
-### `Javascript`  
-Collector  
-  
-### `VyScript`  
-Collector  
+```js
+<script src="collector.js"></script>;
+// ...
+window.CollectorBundle.Collector;
+```
+
+### CommonJS (CJS) Module
+
+```js
+const { Collector } = require('./collector.cjs.js');
+```
 
 ## API  
 
@@ -66,7 +72,7 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance 
+      const toyForParty = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance 
 ```
 
 #### Get an array of instances
@@ -77,7 +83,7 @@ Diob
    Toy
 World
    onNew()
-      const toysForParty = Collector.isInCollection('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
+      const toysForParty = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
 ```
 #### Recycle an instance  
 
@@ -87,9 +93,9 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toyForParty = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
       // a few moments later
-      Collector.collect(toyForParty, toyBin)
+      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
       // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!
 ```
 
@@ -106,12 +112,12 @@ Diob
 World
    onNew()
       // At this point in time toyBin has no toys in it so Collector creates the instance for you
-      const toyForParty = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toyForParty = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
       // We have just put the toy into the toybin
-      Collector.collect(toyForParty, toyBin)
+      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
       // A few moments later we decide we want to get that toy back out
       // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin
-      const toy = Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toy = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin) // DiobToyInstance
 ```
 
 #### How to use `instance.onDumped` with parameters  
@@ -126,7 +132,7 @@ Diob
          this.name = pName // 'toyBall'
 World
    onNew()
-      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onDumped` like a pro  
@@ -143,7 +149,7 @@ Diob
          this.setup(pName)
 World
    onNew()
-      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onCollected`  
@@ -156,8 +162,8 @@ Diob
          World.log('I have been collected')
 World
    onNew()
-      const toyBall = Collector.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance
-      Collector.collect(toyBall, toyBin)
+      const toyBall = JS.CollectorBundle.Collector.isInCollection('Diob/Toy', 1, toyBall) // DiobToyInstance
+      JS.CollectorBundle.Collector.collect(toyBall, toyBin)
 ```
 
       
