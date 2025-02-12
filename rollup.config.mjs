@@ -2,7 +2,7 @@ import babel from '@rollup/plugin-babel';
 import replace from 'rollup-plugin-replace';
 import terser from '@rollup/plugin-terser';
 import { cleandir } from 'rollup-plugin-cleandir';
-import packageJson from './package.json' assert { type: 'json' };
+import packageJson from './package.json' with { type: 'json' };
 
 const fileName = packageJson.name;
 
@@ -29,7 +29,7 @@ const generateOutputConfigs = (pMinify) => {
     const isMinified = pMinify ? '.min' : '';
     const isCJS = pFormat === 'cjs' ? '.cjs': '';
     const fileExtension = pFormat === 'es' ? 'mjs' : 'js';
-	// Uppercase library name for global IIFE represeting this bindle. [LibraryNameBundle].bundleInstance.foo
+	// Uppercase library name for global IIFE representing this bindle. [LibraryNameBundle].bundleInstance.foo
 	const iifeName = pFormat === 'iife' ? `${packageJson.name.slice(0, 1).toUpperCase()}${packageJson.name.slice(1, packageJson.name.length)}Bundle` : undefined;
 
     return {
