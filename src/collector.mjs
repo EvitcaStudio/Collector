@@ -92,7 +92,7 @@ class CollectorSingleton {
 			}
 
 			if (arrayCollected) {
-				// If you try to collect a instance to be recycled and the collection you are recyling it to is full, it is deleted instead.
+				// If you try to collect a instance to be recycled and the collection you are recycling it to is full, it is deleted instead.
 				if (pCollection.length >= this.collectionLimit) {
 					for (let i = pCollected.length - 1; i >= 0; i--) {
 						const instance = pCollected[i];
@@ -103,6 +103,7 @@ class CollectorSingleton {
 							this.cleanInstance(instance);
 							VYLO.delObject(instance);
 						}
+						pCollected.splice(i, 1);
 					}
 					return;
 				// If this collectedArray has more instances than the collection can handle, the access is deleted
@@ -111,14 +112,13 @@ class CollectorSingleton {
 					for (let c = remainder; c > 0; c--) {
 						const instance = pCollected[c];
 						if (instance instanceof CollectorSingleton.DiobConstructor) {
-							pCollected.splice(c, 1);
 							this.cleanInstance(instance);
 							VYLO.delDiob(instance);
 						} else {
-							pCollected.splice(c, 1);
 							this.cleanInstance(instance);
 							VYLO.delObject(instance);
 						}
+						pCollected.splice(c, 1);
 					}
 				}
 				// The remaining instances that are in the collectedArray is now cleaned and processed and added to the collection
@@ -151,14 +151,14 @@ class CollectorSingleton {
 		}
 	}
 	/**
-	 * Gets diob instance(s) from the named ocllection and returns them. If no instances exist in the collection, a new one is created as a last resort.
+	 * Gets diob instance(s) from the named collection and returns them. If no instances exist in the collection, a new one is created as a last resort.
 	 * @param {string} pType - The diob type to find in the collection.
 	 * @param {number} pNum - How many of the diob instances to get from the collection.
 	 * @param {Array} pCollection - The collection to retrieve these instances from.
 	 * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
-	 * @returns {Object} The diob instance that was 
+	 * @returns {Object} The diob instance that was in the collection.
 	 */
-	isInCollection(pType='Diob', pNum=1, pCollection=[], ...pRest) {
+	grab(pType='Diob', pNum=1, pCollection=[], ...pRest) {
 		const reuseArray = [];
 		let added = 0;
 		let quantity = pNum;
@@ -208,6 +208,16 @@ class CollectorSingleton {
 			return reuseArray;
 		}
 	}
+	/**
+	 * Gets diob instance(s) from the named collection and returns them. If no instances exist in the collection, a new one is created as a last resort.
+	 * @deprecated
+	 * @param {string} pType - The diob type to find in the collection.
+	 * @param {number} pNum - How many of the diob instances to get from the collection.
+	 * @param {Array} pCollection - The collection to retrieve these instances from.
+	 * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
+	 * @returns {Object} The diob instance that was in the collection.
+	 */
+	isInCollection = this.grab;
 	/**
 	 * Cleans the diob instance so it can be reused from a fresh state
 	 * @private
