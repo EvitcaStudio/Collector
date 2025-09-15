@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Logger } from './vendor/logger.min.mjs';
 
 class CollectorSingleton {
@@ -7,7 +8,6 @@ class CollectorSingleton {
 	version = "VERSION_REPLACE_ME";
 	/**
 	 * The constructor of the Diob class
-	 * @private
 	 */
 	static DiobConstructor = (() => {
 		const protoDiob = VYLO.newDiob();
@@ -17,51 +17,43 @@ class CollectorSingleton {
 	})();
 	/**
 	 * Collection limit on arrays.
-	 * @private
-	 * @type {number}
 	 */
-	collectionLimit = 20;
+	collectionLimit: number = 20;
 	/**
 	 * Warning limit.
-	 * @private
-	 * @type {number}
 	 */
-	static WARNING_LIMIT = 200;
+	static WARNING_LIMIT: number = 200;
 	/**
 	 * A default collection to use.
-	 * @private
-	 * @type {Array}
 	 */
-	basicCollection = [];
+	basicCollection: any[] = [];
 	/**
-	 * @private
+	 * The logger module this module uses to log errors / logs.
 	 */
+	private logger: Logger;
+
 	constructor() {
-        /** The logger module this module uses to log errors / logs.
-         * @private
-         * @type {Object}
-         */
         this.logger = new Logger();
         this.logger.registerType('Collector-Module', '#ff6600');
 	}
 	/**
 	 * Sets the max collection limit of this module.
-	 * @param {number} pLimit - The max limit of instances a collection can hold.
+	 * @param pLimit - The max limit of instances a collection can hold.
 	 */
-	setMaxLimit(pLimit) {
+	setMaxLimit(pLimit: number): void {
 		if (typeof(pLimit) === 'number') {
 			this.collectionLimit = Math.round(pLimit);
-			if (this.collectionLimit > Collector.WARNING_LIMIT) {
+			if (this.collectionLimit > CollectorSingleton.WARNING_LIMIT) {
 				this.logger.prefix('Collector-Module').warn('Collector: This is a high value to use for a max limit in a collection! Only use this high of a value if you know what you are doing.')
 			}
 		}
 	}
 	/**
 	 * Collects a instance into a collection.
-	 * @param {Object} pCollected - The instance to collect.
-	 * @param {Array} pCollection - The collection array to collect the instance to.
+	 * @param pCollected - The instance to collect.
+	 * @param pCollection - The collection array to collect the instance to.
 	 */
-	collect(pCollected, pCollection) {
+	collect(pCollected: any, pCollection: any[]): void {
 		const arrayCollected = Array.isArray(pCollected);
 		// If there was nothing passed to be collected
 		if (!pCollected) {
@@ -152,14 +144,14 @@ class CollectorSingleton {
 	}
 	/**
 	 * Gets diob instance(s) from the named collection and returns them. If no instances exist in the collection, a new one is created as a last resort.
-	 * @param {string} pType - The diob type to find in the collection.
-	 * @param {number} pNum - How many of the diob instances to get from the collection.
-	 * @param {Array} pCollection - The collection to retrieve these instances from.
-	 * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
-	 * @returns {Object} The diob instance that was in the collection.
+	 * @param pType - The diob type to find in the collection.
+	 * @param pNum - How many of the diob instances to get from the collection.
+	 * @param pCollection - The collection to retrieve these instances from.
+	 * @param pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
+	 * @returns The diob instance that was in the collection.
 	 */
-	grab(pType='Diob', pNum=1, pCollection=[], ...pRest) {
-		const reuseArray = [];
+	grab(pType: string = 'Diob', pNum: number = 1, pCollection: any[] = [], ...pRest: any[]): any {
+		const reuseArray: any[] = [];
 		let added = 0;
 		let quantity = pNum;
 		// Objects do not have a baseType variable
@@ -167,9 +159,9 @@ class CollectorSingleton {
 		if (!pCollection.length) {
 			for (let i = 0; i < pNum; i++) {
 				if (isObject) {
-					reuseArray.push(VYLO.newObject(pType, ...pRest));
+					reuseArray.push((VYLO.newObject as any)(pType, ...pRest));
 				} else {
-					reuseArray.push(VYLO.newDiob(pType, ...pRest));
+					reuseArray.push((VYLO.newDiob as any)(pType, ...pRest));
 				}
 			}
 			if (reuseArray.length === 1) return reuseArray.pop();
@@ -197,9 +189,9 @@ class CollectorSingleton {
 				const missingQuantity = pNum - added;
 				for (let x = 0; x < missingQuantity; x++) {
 					if (isObject) {
-						reuseArray.push(VYLO.newObject(pType, ...pRest));
+						reuseArray.push((VYLO.newObject as any)(pType, ...pRest));
 					} else {
-						reuseArray.push(VYLO.newDiob(pType, ...pRest));
+						reuseArray.push((VYLO.newDiob as any)(pType, ...pRest));
 					}
 				}
 			}
@@ -211,19 +203,18 @@ class CollectorSingleton {
 	/**
 	 * Gets diob instance(s) from the named collection and returns them. If no instances exist in the collection, a new one is created as a last resort.
 	 * @deprecated
-	 * @param {string} pType - The diob type to find in the collection.
-	 * @param {number} pNum - How many of the diob instances to get from the collection.
-	 * @param {Array} pCollection - The collection to retrieve these instances from.
-	 * @param  {...any} pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
-	 * @returns {Object} The diob instance that was in the collection.
+	 * @param pType - The diob type to find in the collection.
+	 * @param pNum - How many of the diob instances to get from the collection.
+	 * @param pCollection - The collection to retrieve these instances from.
+	 * @param pRest - Remaining args to be passed into the new constructor of the diob or onDumped event
+	 * @returns The diob instance that was in the collection.
 	 */
 	isInCollection = this.grab;
 	/**
 	 * Cleans the diob instance so it can be reused from a fresh state
-	 * @private
-	 * @param {Object} pDiob - The diob instance to clean.
+	 * @param pDiob - The diob instance to clean.
 	 */
-	cleanInstance(pDiob) {
+	private cleanInstance(pDiob: any): void {
 		if (pDiob) {
 			if (pDiob instanceof CollectorSingleton.DiobConstructor) {
 				const isInterface = (pDiob.baseType === 'Interface' || pDiob.type === 'Interface' || VYLO.Type.getInheritances(pDiob.type).includes('Interface'));

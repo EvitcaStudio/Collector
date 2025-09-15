@@ -1,61 +1,23 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <base data-ice="baseUrl">
-  <title data-ice="title">Home | Collector</title>
-  <link type="text/css" rel="stylesheet" href="css/style.css">
-  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
-  <script src="script/prettify/prettify.js"></script>
-  <script src="script/manual.js"></script>
-<meta name="description" content="A recycle manager."><meta property="og:type" content="website"><meta property="og:url" content="https://github.com/EvitcaStudio/Collector#readme"><meta property="og:site_name" content="Collector"><meta property="og:title" content="Collector"><meta property="og:image" content="./evitcastudio_round_branding.png"><meta property="og:description" content="A recycle manager."><meta property="og:author" content="https://github.com/doubleactii"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="Collector"><meta property="twitter:description" content="A recycle manager."><meta property="twitter:image" content="./evitcastudio_round_branding.png"></head>
-<body class="layout-container" data-ice="rootContainer">
-
-<header>
-  <a href="./" style="display: flex; align-items: center;"><img src="./image/brand_logo.png" style="width:34px;"></a>
-  
-  <a href="identifiers.html">Reference</a>
-  <a href="source.html">Source</a>
-  
-  <div class="search-box">
-  <span>
-    <img src="./image/search.png">
-    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
-  </span>
-    <ul class="search-result"></ul>
-  </div>
-<a style="position:relative; top:3px;" href="https://github.com/EvitcaStudio/Collector"><img width="20px" src="./image/github.png"></a></header>
-
-<nav class="navigation" data-ice="nav"><div>
-  <ul>
-    
-  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/collector.mjs~CollectorSingleton.html">CollectorSingleton</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-Collector">Collector</a></span></span></li>
-</ul>
-</div>
-</nav>
-
-<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="collector">Collector</h1><p>This plugin gives you an easy and beneficial way to reuse instances inside of the <a href="https://vylocity.com">Vylocity Game Engine</a>, as well as slow down the garbage collector.</p>
-<h2 id="installation">Installation</h2><h3 id="es-module">ES Module</h3><pre><code class="lang-js"><code class="source-code prettyprint">import { Collector } from &apos;./collector.mjs&apos;;</code>
-</code></pre>
-<h3 id="iife--immediately-invoked-function-expression-">IIFE (Immediately Invoked Function Expression)</h3><pre><code class="lang-js"><code class="source-code prettyprint">&lt;script src=&quot;collector.js&quot;&gt;&lt;/script&gt;;
-window.CollectorBundle.Collector;</code>
-</code></pre>
-<h3 id="commonjs--cjs--module">CommonJS (CJS) Module</h3><pre><code class="lang-js"><code class="source-code prettyprint">const { Collector } = require(&apos;./collector.cjs.js&apos;);</code>
-</code></pre>
-<h2 id="api">API</h2><h3 id="collector-setmaxlimit-plimit-">Collector.setMaxLimit(pLimit)</h3><ul>
+<!DOCTYPE html><html class="default" lang="en"><head><meta charSet="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>Collector - v2.0.0</title><meta name="description" content="Documentation for Collector"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="assets/style.css"/><link rel="stylesheet" href="assets/highlight.css"/><script defer src="assets/main.js"></script><script async src="assets/icons.js" id="tsd-icons-script"></script><script async src="assets/search.js" id="tsd-search-script"></script><script async src="assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search" data-base="."><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="index.html" class="title">Collector - v2.0.0</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><use href="assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><h2>Collector - v2.0.0</h2></div><div class="tsd-panel tsd-typography"><a id="md:collector" class="tsd-anchor"></a><h1><a href="#md:collector">Collector</a></h1><p>This plugin gives you an easy and beneficial way to reuse instances inside of the <a href="https://vylocity.com">Vylocity Game Engine</a>, as well as slow down the garbage collector.</p>
+<a id="md:installation" class="tsd-anchor"></a><h2><a href="#md:installation">Installation</a></h2><a id="md:es-module" class="tsd-anchor"></a><h3><a href="#md:es-module">ES Module</a></h3><pre><code class="language-js"><span class="hl-0">import</span><span class="hl-1"> { </span><span class="hl-2">Collector</span><span class="hl-1"> } </span><span class="hl-0">from</span><span class="hl-1"> </span><span class="hl-3">&#39;./collector.mjs&#39;</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+<a id="md:iife-immediately-invoked-function-expression" class="tsd-anchor"></a><h3><a href="#md:iife-immediately-invoked-function-expression">IIFE (Immediately Invoked Function Expression)</a></h3><pre><code class="language-js"><span class="hl-4">&lt;</span><span class="hl-5">script</span><span class="hl-1"> </span><span class="hl-6">src</span><span class="hl-1">=</span><span class="hl-3">&quot;collector.js&quot;</span><span class="hl-4">&gt;&lt;/</span><span class="hl-5">script</span><span class="hl-4">&gt;</span><span class="hl-1">;</span><br/><span class="hl-2">window</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">;</span>
+</code><button>Copy</button></pre>
+<a id="md:commonjs-cjs-module" class="tsd-anchor"></a><h3><a href="#md:commonjs-cjs-module">CommonJS (CJS) Module</a></h3><pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> { </span><span class="hl-8">Collector</span><span class="hl-1"> } = </span><span class="hl-9">require</span><span class="hl-1">(</span><span class="hl-3">&#39;./collector.cjs.js&#39;</span><span class="hl-1">);</span>
+</code><button>Copy</button></pre>
+<a id="md:api" class="tsd-anchor"></a><h2><a href="#md:api">API</a></h2><a id="md:collectorsetmaxlimitplimit" class="tsd-anchor"></a><h3><a href="#md:collectorsetmaxlimitplimit">Collector.setMaxLimit(pLimit)</a></h3><ul>
 <li><code>pLimit</code>: The new max limit on collections. </li>
 <li><code>desc</code>: Sets a limit on how much each collection array can recycle before deleting the access. The max is <code>20</code> by default. <blockquote>
-<p>[!CAUTION]<br>(ONLY SET THIS TO A HIGH VALUE IF YOU KNOW WHAT YOU ARE DOING. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)  </p>
+<p>[!CAUTION]<br>(ONLY SET THIS TO A HIGH VALUE IF YOU KNOW WHAT YOU ARE DOING. HIGH VALUES LEAD TO INSTANCES JUST SITTING IN ARRAYS AND TAKING UP MEMORY)</p>
 </blockquote>
 </li>
 </ul>
-<h3 id="collector-collect-pcollected--pcollection-">Collector.collect(pCollected, pCollection)</h3><ul>
+<a id="md:collectorcollectpcollected-pcollection" class="tsd-anchor"></a><h3><a href="#md:collectorcollectpcollected-pcollection">Collector.collect(pCollected, pCollection)</a></h3><ul>
 <li><code>pCollected</code>: The instance|array to collect into the collection array pCollection.</li>
-<li><code>pCollection</code>: The collection array this instance is going to. If the collection&apos;s length is <code>&gt;=</code> then the set max limit then pCollected will be deleted.</li>
+<li><code>pCollection</code>: The collection array this instance is going to. If the collection&#39;s length is <code>&gt;=</code> then the set max limit then pCollected will be deleted.</li>
 <li><code>desc</code>: Recycle an instance|array for reuse into pCollection. If an array is passed, its contents will be added to the collection array.</li>
 </ul>
-<h3 id="collector-grab-ptype--pnum--pcollection---parg---parg-------parg----">Collector.grab(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])</h3><ul>
+<a id="md:collectorgrabptype-pnum-pcollection-parg-parg--parg" class="tsd-anchor"></a><h3><a href="#md:collectorgrabptype-pnum-pcollection-parg-parg--parg">Collector.grab(pType, pNum, pCollection, [pArg[, pArg[, ... pArg]]])</a></h3><ul>
 <li><code>pType</code>: The type of instance you want to get</li>
 <li><code>pNum</code>: The amount of pType(s) you want to get out of this collection</li>
 <li><code>pCollection</code>: The collection array to check inside of</li>
@@ -63,8 +25,8 @@ window.CollectorBundle.Collector;</code>
 <li><code>desc</code>: This is the plugin equivalent of <code>new Diob(pType)</code>. </li>
 <li><code>returns</code>: This returns either the instance you ask for (if it was only 1) Or it returns an array full of instances that you asked for.</li>
 </ul>
-<h3 id="diob-object-clean----code-event--code-">Diob|Object.clean() <code>event</code></h3><ul>
-<li><code>desc</code>: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it&apos;s default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn&apos;t know about. Internal cleaning involves:<ul>
+<a id="md:diobobjectclean-event" class="tsd-anchor"></a><h3><a href="#md:diobobjectclean-event">Diob|Object.clean() <code>event</code></a></h3><ul>
+<li><code>desc</code>: This is a user defined event function that will be called when this instance is collected. This should reset this instance to it&#39;s default state. This plugin does some basic cleaning of this instance when it is collected, but cannot do things it doesn&#39;t know about. Internal cleaning involves:<ul>
 <li><code>Removing color&amp;text</code></li>
 <li><code>Removing overlays&amp;filters</code></li>
 <li><code>Removing it from an interface if it is a interface element.</code></li>
@@ -75,106 +37,30 @@ window.CollectorBundle.Collector;</code>
 </ul>
 </li>
 </ul>
-<h3 id="diob-object-ondumped----pparam---code-event--code-">Diob|Object.onDumped(...pParam) <code>event</code></h3><ul>
+<a id="md:diobobjectondumpedpparam-event" class="tsd-anchor"></a><h3><a href="#md:diobobjectondumpedpparam-event">Diob|Object.onDumped(...pParam) <code>event</code></a></h3><ul>
 <li><code>pParam</code>: The argument(s) that were passed inside of <code>Collector.grab</code>.</li>
-<li><code>desc</code>: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin&apos;s equivalent of <code>Object.onNew</code></li>
+<li><code>desc</code>: Event function that is called when this object has been removed from a collection and is ready for use. This is the plugin&#39;s equivalent of <code>Object.onNew</code></li>
 </ul>
-<h3 id="diob-object-oncollected----code-event--code-">Diob|Object.onCollected() <code>event</code></h3><ul>
-<li><code>desc</code>: Event function that is called when this object is added to a collection. This is the plugin&apos;s equivalent of <code>Object.onDel</code></li>
+<a id="md:diobobjectoncollected-event" class="tsd-anchor"></a><h3><a href="#md:diobobjectoncollected-event">Diob|Object.onCollected() <code>event</code></a></h3><ul>
+<li><code>desc</code>: Event function that is called when this object is added to a collection. This is the plugin&#39;s equivalent of <code>Object.onDel</code></li>
 </ul>
-<h2 id="examples">Examples</h2><h4 id="get-an-instance">Get an instance</h4><pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-World
-   onNew()
-      const toyForParty = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance </code>
-</code></pre>
-<h4 id="get-an-array-of-instances">Get an array of instances</h4><pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-World
-   onNew()
-      const toysForParty = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]</code>
-</code></pre>
-<h4 id="recycle-an-instance">Recycle an instance</h4><pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-World
-   onNew()
-      const toyForParty = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
-      // a few moments later
-      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
-      // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!</code>
-</code></pre>
-<h4 id="how-to-use--code-instance-ondumped--code-">How to use <code>instance.onDumped</code></h4><p>Any time an instance is removed from a collection array it will call <code>instance.onDumped()</code> if it is a defined function.  </p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-      onNew()
-         World.log(&apos;toyBin was empty so i was created!&apos;)
-      function onDumped()
-         World.log(&apos;I was removed from toyBin so you can use me again!&apos;)
-World
-   onNew()
-      // At this point in time toyBin has no toys in it so Collector creates the instance for you
-      const toyForParty = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance
-      // We have just put the toy into the toybin
-      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
-      // A few moments later we decide we want to get that toy back out
-      // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin
-      const toy = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin) // DiobToyInstance</code>
-</code></pre>
-<h4 id="how-to-use--code-instance-ondumped--code--with-parameters">How to use <code>instance.onDumped</code> with parameters</h4><p>If your collection array starts off empty you must handle the condition of Collector calling <code>new Diob</code> and in return the event function <code>instance.onNew</code> being called!  </p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-      onNew(pName)
-         this.name = pName // &apos;toyBall&apos;
-      function onDumped(pName)
-         this.name = pName // &apos;toyBall&apos;
-World
-   onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
-</code></pre>
-<h4 id="using--code-instance-ondumped--code--like-a-pro">Using <code>instance.onDumped</code> like a pro</h4><p>Since <code>instance.onNew</code> and <code>instance.onDumped</code> are virtually the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don&apos;t have to duplicate code. In this case <code>setup</code> is the handler function.  </p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-      onNew(pName)
-         this.setup(pName)
-      function setup(pName)
-         this.name = pName // &apos;toyBall&apos;
-      function onDumped(pName)
-         this.setup(pName)
-World
-   onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBin, &apos;toyBall&apos;) // DiobToyInstance  </code>
-</code></pre>
-<h4 id="using--code-instance-oncollected--code-">Using <code>instance.onCollected</code></h4><p>Any time a diob is collected, Collector will call <code>instance.onCollected</code> if it is a defined function.  </p>
-<pre><code class="lang-js"><code class="source-code prettyprint">const toyBin = []
-Diob
-   Toy
-      function onCollected()
-         World.log(&apos;I have been collected&apos;)
-World
-   onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab(&apos;Diob/Toy&apos;, 1, toyBall) // DiobToyInstance
-      JS.CollectorBundle.Collector.collect(toyBall, toyBin)</code>
-</code></pre>
-<h3 id="global-dependency">Global Dependency</h3><p>Collector relies on the <code>VYLO</code> variable being globally accessible.</p>
-</div>
-</div>
-
-<footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
-</footer>
-
-<script src="script/search_index.js"></script>
-<script src="script/search.js"></script>
-<script src="script/pretty-print.js"></script>
-<script src="script/inherited-summary.js"></script>
-<script src="script/test-summary.js"></script>
-<script src="script/inner-link.js"></script>
-<script src="script/patch-for-local.js"></script>
-</body>
-</html>
+<a id="md:examples" class="tsd-anchor"></a><h2><a href="#md:examples">Examples</a></h2><a id="md:get-an-instance" class="tsd-anchor"></a><h4><a href="#md:get-an-instance">Get an instance</a></h4><pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-2">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyForParty</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance </span>
+</code><button>Copy</button></pre>
+<a id="md:get-an-array-of-instances" class="tsd-anchor"></a><h4><a href="#md:get-an-array-of-instances">Get an array of instances</a></h4><pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-2">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toysForParty</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">3</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">) </span><span class="hl-11">// [DiobToyInstance, DiobToyInstance, DiobToyInstance]</span>
+</code><button>Copy</button></pre>
+<a id="md:recycle-an-instance" class="tsd-anchor"></a><h4><a href="#md:recycle-an-instance">Recycle an instance</a></h4><pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-2">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyForParty</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance</span><br/><span class="hl-1">      </span><span class="hl-11">// a few moments later</span><br/><span class="hl-1">      </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">collect</span><span class="hl-1">(</span><span class="hl-2">toyForParty</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">)</span><br/><span class="hl-1">      </span><span class="hl-11">// We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!</span>
+</code><button>Copy</button></pre>
+<a id="md:how-to-use-instanceondumped" class="tsd-anchor"></a><h4><a href="#md:how-to-use-instanceondumped">How to use <code>instance.onDumped</code></a></h4><p>Any time an instance is removed from a collection array it will call <code>instance.onDumped()</code> if it is a defined function.  </p>
+<pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-1">      </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">         </span><span class="hl-2">World</span><span class="hl-1">.</span><span class="hl-9">log</span><span class="hl-1">(</span><span class="hl-3">&#39;toyBin was empty so i was created!&#39;</span><span class="hl-1">)</span><br/><span class="hl-1">      </span><span class="hl-7">function</span><span class="hl-1"> </span><span class="hl-9">onDumped</span><span class="hl-1">()</span><br/><span class="hl-1">         </span><span class="hl-9">World</span><span class="hl-1">.</span><span class="hl-9">log</span><span class="hl-1">(</span><span class="hl-3">&#39;I was removed from toyBin so you can use me again!&#39;</span><span class="hl-1">)</span><br/><span class="hl-9">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-11">// At this point in time toyBin has no toys in it so Collector creates the instance for you</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyForParty</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance</span><br/><span class="hl-1">      </span><span class="hl-11">// We have just put the toy into the toybin</span><br/><span class="hl-1">      </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">collect</span><span class="hl-1">(</span><span class="hl-2">toyForParty</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">)</span><br/><span class="hl-1">      </span><span class="hl-11">// A few moments later we decide we want to get that toy back out</span><br/><span class="hl-1">      </span><span class="hl-11">// Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toy</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance</span>
+</code><button>Copy</button></pre>
+<a id="md:how-to-use-instanceondumped-with-parameters" class="tsd-anchor"></a><h4><a href="#md:how-to-use-instanceondumped-with-parameters">How to use <code>instance.onDumped</code> with parameters</a></h4><p>If your collection array starts off empty you must handle the condition of Collector calling <code>new Diob</code> and in return the event function <code>instance.onNew</code> being called!  </p>
+<pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-1">      </span><span class="hl-9">onNew</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">         </span><span class="hl-7">this</span><span class="hl-1">.</span><span class="hl-2">name</span><span class="hl-1"> = </span><span class="hl-2">pName</span><span class="hl-1"> </span><span class="hl-11">// &#39;toyBall&#39;</span><br/><span class="hl-1">      </span><span class="hl-7">function</span><span class="hl-1"> </span><span class="hl-9">onDumped</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">         </span><span class="hl-9">this</span><span class="hl-1">.</span><span class="hl-9">name</span><span class="hl-1"> = </span><span class="hl-9">pName</span><span class="hl-1"> </span><span class="hl-11">// &#39;toyBall&#39;</span><br/><span class="hl-9">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBall</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">, </span><span class="hl-3">&#39;toyBall&#39;</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance  </span>
+</code><button>Copy</button></pre>
+<a id="md:using-instanceondumped-like-a-pro" class="tsd-anchor"></a><h4><a href="#md:using-instanceondumped-like-a-pro">Using <code>instance.onDumped</code> like a pro</a></h4><p>Since <code>instance.onNew</code> and <code>instance.onDumped</code> are virtually the same, they can run the EXACT same code under each of them. So it is best to create a handler function so you don&#39;t have to duplicate code. In this case <code>setup</code> is the handler function.  </p>
+<pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-1">      </span><span class="hl-9">onNew</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">         </span><span class="hl-7">this</span><span class="hl-1">.</span><span class="hl-9">setup</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">      </span><span class="hl-7">function</span><span class="hl-1"> </span><span class="hl-9">setup</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">         </span><span class="hl-9">this</span><span class="hl-1">.</span><span class="hl-9">name</span><span class="hl-1"> = </span><span class="hl-9">pName</span><span class="hl-1"> </span><span class="hl-11">// &#39;toyBall&#39;</span><br/><span class="hl-1">      </span><span class="hl-7">function</span><span class="hl-1"> </span><span class="hl-9">onDumped</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-1">         </span><span class="hl-9">this</span><span class="hl-1">.</span><span class="hl-9">setup</span><span class="hl-1">(</span><span class="hl-2">pName</span><span class="hl-1">)</span><br/><span class="hl-9">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBall</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">, </span><span class="hl-3">&#39;toyBall&#39;</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance  </span>
+</code><button>Copy</button></pre>
+<a id="md:using-instanceoncollected" class="tsd-anchor"></a><h4><a href="#md:using-instanceoncollected">Using <code>instance.onCollected</code></a></h4><p>Any time a diob is collected, Collector will call <code>instance.onCollected</code> if it is a defined function.  </p>
+<pre><code class="language-js"><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBin</span><span class="hl-1"> = []</span><br/><span class="hl-2">Diob</span><br/><span class="hl-1">   </span><span class="hl-2">Toy</span><br/><span class="hl-1">      </span><span class="hl-7">function</span><span class="hl-1"> </span><span class="hl-9">onCollected</span><span class="hl-1">()</span><br/><span class="hl-1">         </span><span class="hl-9">World</span><span class="hl-1">.</span><span class="hl-9">log</span><span class="hl-1">(</span><span class="hl-3">&#39;I have been collected&#39;</span><span class="hl-1">)</span><br/><span class="hl-9">World</span><br/><span class="hl-1">   </span><span class="hl-9">onNew</span><span class="hl-1">()</span><br/><span class="hl-1">      </span><span class="hl-7">const</span><span class="hl-1"> </span><span class="hl-8">toyBall</span><span class="hl-1"> = </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">grab</span><span class="hl-1">(</span><span class="hl-3">&#39;Diob/Toy&#39;</span><span class="hl-1">, </span><span class="hl-10">1</span><span class="hl-1">, </span><span class="hl-2">toyBall</span><span class="hl-1">) </span><span class="hl-11">// DiobToyInstance</span><br/><span class="hl-1">      </span><span class="hl-8">JS</span><span class="hl-1">.</span><span class="hl-2">CollectorBundle</span><span class="hl-1">.</span><span class="hl-2">Collector</span><span class="hl-1">.</span><span class="hl-9">collect</span><span class="hl-1">(</span><span class="hl-2">toyBall</span><span class="hl-1">, </span><span class="hl-2">toyBin</span><span class="hl-1">)</span>
+</code><button>Copy</button></pre>
+<a id="md:global-dependency" class="tsd-anchor"></a><h3><a href="#md:global-dependency">Global Dependency</a></h3><p>Collector relies on the <code>VYLO</code> variable being globally accessible.</p>
+</div></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-index-accordion"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><h4 class="uppercase">Member Visibility</h4><form><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></form></div><div class="tsd-theme-toggle"><h4 class="uppercase">Theme</h4><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-index-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><use href="assets/icons.svg#icon-chevronDown"></use></svg>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#md:collector"><span>Collector</span></a><ul><li><a href="#md:installation"><span>Installation</span></a></li><li><ul><li><a href="#md:es-module"><span>ES <wbr/>Module</span></a></li><li><a href="#md:iife-immediately-invoked-function-expression"><span>IIFE (<wbr/>Immediately <wbr/>Invoked <wbr/>Function <wbr/>Expression)</span></a></li><li><a href="#md:commonjs-cjs-module"><span>CommonJS (CJS) <wbr/>Module</span></a></li></ul></li><li><a href="#md:api"><span>API</span></a></li><li><ul><li><a href="#md:collectorsetmaxlimitplimit"><span>Collector.set<wbr/>Max<wbr/>Limit(p<wbr/>Limit)</span></a></li><li><a href="#md:collectorcollectpcollected-pcollection"><span>Collector.collect(p<wbr/>Collected, p<wbr/>Collection)</span></a></li><li><a href="#md:collectorgrabptype-pnum-pcollection-parg-parg--parg"><span>Collector.grab(p<wbr/>Type, p<wbr/>Num, p<wbr/>Collection, [p<wbr/>Arg[, p<wbr/>Arg[, ... p<wbr/>Arg]]])</span></a></li><li><a href="#md:diobobjectclean-event"><span>Diob|<wbr/>Object.clean() event</span></a></li><li><a href="#md:diobobjectondumpedpparam-event"><span>Diob|<wbr/>Object.on<wbr/>Dumped(...p<wbr/>Param) event</span></a></li><li><a href="#md:diobobjectoncollected-event"><span>Diob|<wbr/>Object.on<wbr/>Collected() event</span></a></li></ul></li><li><a href="#md:examples"><span>Examples</span></a></li><li><ul><li><ul><li><a href="#md:get-an-instance"><span>Get an instance</span></a></li><li><a href="#md:get-an-array-of-instances"><span>Get an array of instances</span></a></li><li><a href="#md:recycle-an-instance"><span>Recycle an instance</span></a></li><li><a href="#md:how-to-use-instanceondumped"><span>How to use instance.on<wbr/>Dumped</span></a></li><li><a href="#md:how-to-use-instanceondumped-with-parameters"><span>How to use instance.on<wbr/>Dumped with parameters</span></a></li><li><a href="#md:using-instanceondumped-like-a-pro"><span>Using instance.on<wbr/>Dumped like a pro</span></a></li><li><a href="#md:using-instanceoncollected"><span>Using instance.on<wbr/>Collected</span></a></li></ul></li><li><a href="#md:global-dependency"><span>Global <wbr/>Dependency</span></a></li></ul></li></ul></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="assets/icons.svg#icon-1"></use></svg><span>Collector - v2.0.0</span></a><ul class="tsd-small-nested-navigation" id="tsd-nav-container" data-base="."><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
