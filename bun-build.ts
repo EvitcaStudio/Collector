@@ -50,7 +50,7 @@ await Promise.all([
     Bun.build({
         entrypoints: ['./src/index.ts'],
         outdir: './dist/iife/',
-        naming: `${packageJson.name}.js`,
+        naming: `${packageJson.name}-iife.js`,
         format: 'iife',
         minify: false,
         banner: banner,
@@ -62,7 +62,7 @@ await Promise.all([
     Bun.build({
         entrypoints: ['./src/index.ts'],
         outdir: './dist/iife/',
-        naming: `${packageJson.name}.min.js`,
+        naming: `${packageJson.name}-iife.min.js`,
         format: 'iife',
         minify: true,
         banner: banner,
@@ -76,8 +76,8 @@ await Promise.all([
 const filesToUpdate = [
     `dist/esm/${packageJson.name}.js`,
     `dist/min/${packageJson.name}.min.js`,
-    `dist/iife/${packageJson.name}.js`,
-    `dist/iife/${packageJson.name}.min.js`
+    `dist/iife/${packageJson.name}-iife.js`,
+    `dist/iife/${packageJson.name}-iife.min.js`
 ];
 
 for (const file of filesToUpdate) {
