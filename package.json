@@ -2,8 +2,18 @@
   "name": "collector",
   "version": "2.0.0",
   "description": "A recycle manager",
-  "main": "dist/collector.js",
+  "main": "dist/esm/collector.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/collector.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./esm": "./dist/esm/collector.js",
+    "./min": "./dist/min/collector.min.js",
+    "./iife": "./dist/iife/collector.js",
+    "./iife/min": "./dist/iife/collector.min.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "bun run bun-build.ts && npx tsc --declaration --emitDeclarationOnly --declarationMap false --sourceMap false",
