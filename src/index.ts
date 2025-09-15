@@ -1,1 +1,1 @@
-export { Collector } from './collector';
+export { Collector, CollectorSingleton } from './collector';

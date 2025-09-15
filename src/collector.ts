@@ -1,7 +1,7 @@
 // @ts-ignore
 import { Logger } from './vendor/logger.min.mjs';
 
-class CollectorSingleton {
+export class CollectorSingleton {
 	/**
 	 * The version of the module.
 	 */
