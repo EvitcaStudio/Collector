@@ -16,12 +16,6 @@ import { Collector } from './collector.mjs';
 window.CollectorBundle.Collector;
 ```
 
-### CommonJS (CJS) Module
-
-```js
-const { Collector } = require('./collector.cjs.js');
-```
-
 ## API  
 ###  Collector.setMaxLimit(pLimit)
    - `pLimit`: The new max limit on collections. 
@@ -60,6 +54,11 @@ const { Collector } = require('./collector.cjs.js');
    - `desc`: Event function that is called when this object is added to a collection. This is the plugin's equivalent of `Object.onDel`
 
 ##  Examples  
+
+#### Since thie collector has a lengthy reference, its best to store it in a variable
+```js
+const collector = JS.CollectorBundle.Collector
+```
 ####  Get an instance 
 ```js
 const toyBin = []
@@ -67,7 +66,7 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance 
+      const toyForParty = collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance 
 ```
 
 #### Get an array of instances
@@ -78,7 +77,7 @@ Diob
    Toy
 World
    onNew()
-      const toysForParty = JS.CollectorBundle.Collector.grab('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
+      const toysForParty = collector.grab('Diob/Toy', 3, toyBin) // [DiobToyInstance, DiobToyInstance, DiobToyInstance]
 ```
 #### Recycle an instance  
 
@@ -88,9 +87,9 @@ Diob
    Toy
 World
    onNew()
-      const toyForParty = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toyForParty = collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
       // a few moments later
-      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
+      collector.collect(toyForParty, toyBin)
       // We have gotten a toy from the toy bin, did something with it for a while, and returned it to the toy bin. Recycling rocks!
 ```
 
@@ -107,12 +106,12 @@ Diob
 World
    onNew()
       // At this point in time toyBin has no toys in it so Collector creates the instance for you
-      const toyForParty = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
+      const toyForParty = collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
       // We have just put the toy into the toybin
-      JS.CollectorBundle.Collector.collect(toyForParty, toyBin)
+      collector.collect(toyForParty, toyBin)
       // A few moments later we decide we want to get that toy back out
-      // Instead of creating a new instance of the toy, aRecyle cleaned and removed the toy you previously put into toyBin
-      const toy = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
+      // Instead of creating a new instance of the toy, Collector cleaned and removed the toy you previously put into toyBin
+      const toy = collector.grab('Diob/Toy', 1, toyBin) // DiobToyInstance
 ```
 
 #### How to use `instance.onDumped` with parameters  
@@ -127,7 +126,7 @@ Diob
          this.name = pName // 'toyBall'
 World
    onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = collector.grab('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onDumped` like a pro  
@@ -144,7 +143,7 @@ Diob
          this.setup(pName)
 World
    onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
+      const toyBall = collector.grab('Diob/Toy', 1, toyBin, 'toyBall') // DiobToyInstance  
 ```
 
 #### Using `instance.onCollected`  
@@ -157,8 +156,8 @@ Diob
          World.log('I have been collected')
 World
    onNew()
-      const toyBall = JS.CollectorBundle.Collector.grab('Diob/Toy', 1, toyBall) // DiobToyInstance
-      JS.CollectorBundle.Collector.collect(toyBall, toyBin)
+      const toyBall = collector.grab('Diob/Toy', 1, toyBall) // DiobToyInstance
+      collector.collect(toyBall, toyBin)
 ```
 
       
